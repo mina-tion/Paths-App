@@ -1,0 +1,25 @@
+@import 'sources/styles/mixins.scss';
+
+
+.header {
+  @include flex(flex-end, space-between);
+  padding-bottom: 20px;
+
+  .brandContainer {
+    @include flex(flex-end, center);
+    // align-content: center;
+
+    .name {
+      @include text-style(40px, 500, 36px);
+      margin: 0px 0px 0px 10px;
+    }
+  }
+
+  .button {
+    height: 40px;
+    border-radius: 4px;
+    @include text-style(16px, 600, $color: #FFFFFF);
+  }
+
+  border-bottom: 1px solid;
+}

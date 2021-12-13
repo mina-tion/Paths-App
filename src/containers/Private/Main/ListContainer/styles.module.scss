@@ -1,0 +1,62 @@
+@import 'sources/styles/mixins.scss';
+
+.listContainer {
+  width: 50%;
+  border-right: 1px solid;
+  padding-right: 30px;
+
+  .search { 
+    width: 100%;
+  }
+
+  .list {
+    margin-top: 30px;
+    padding: 0;
+
+    .listItem {
+      &:first-child {
+        margin-top: 20px;
+      }
+
+      width: 100%;
+      background-color: #0000000a;
+      margin-bottom: 10px;
+
+      .logo {
+        @include width-height(40px, 40px);
+        background-color: aquamarine;
+        font-size: 40px;
+      }
+
+      .textContainer {
+        height: 80%;
+
+        .title {
+          @include text-style(22px, 500);
+        }
+
+        .favorite {
+          content: "0";
+        }
+
+        .description {
+          @include text-style(14px, 400, 16px);
+        }
+      }
+
+      .lengthText {
+        @include text-style(30px, 500);
+      }
+
+      .arrow {
+        margin-left: 10px;
+        @include text-style(15px, 800);
+        &:hover { 
+          @include text-style(16px, 800);
+          cursor: pointer;
+        }
+      }
+
+    }
+  }
+}

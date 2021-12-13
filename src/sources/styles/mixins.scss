@@ -1,61 +1,54 @@
 @import 'sources/styles/variables.scss';
 
 //breakpoints
-$mobSmDOWN: (
-  max-width: 320px,
+$mobSmDOWN: (max-width: 320px,
 );
 
-$horizontalPosMob: (
-  max-height: 599px,
+$horizontalPosMob: (max-height: 599px,
 );
 
-$mobMdDOWN: (
-  max-width: 393px,
-  max-height: 744px
-);
+$mobMdDOWN: (max-width: 393px,
+  max-height: 744px);
 
-$mobLgDOWN: (
-  max-width: 414px,
-  max-height: 715px
-);
+$mobLgDOWN: (max-width: 414px,
+  max-height: 715px);
 
-$mobMediumDOWN: (
-  max-width: 1792px,
-  max-height: 828px
-);
+$mobMediumDOWN: (max-width: 1792px,
+  max-height: 828px);
 
-$mobXlDOWN: (
-  max-width: 2340px,
-  max-height: 1080px
-);
+$mobXlDOWN: (max-width: 2340px,
+  max-height: 1080px);
 
 
-$desktopMdDOWN: (
-  max-width: 1920px,
-  max-height: 932px
-);
+$desktopMdDOWN: (max-width: 1920px,
+  max-height: 932px);
 
-$desktopLgDOWN: (
-  max-width: 1920px,
-  max-height: 1080px
-);
+$desktopLgDOWN: (max-width: 1920px,
+  max-height: 1080px);
 
-$desktop2KLgDOWN: (
-  max-width: 2560px,
-  max-height: 1600px
-);
+$desktop2KLgDOWN: (max-width: 2560px,
+  max-height: 1600px);
 
-@mixin textStyle($size: 1rem, $weight: 400, $family: var(--fontType)) {
+@mixin text-style($size: 1rem, $weight: 400, $height: 24px, $family: var(--fontType), $color: #000, $letter-spacing: 0px) {
   font-family: $family;
   font-style: normal;
+  line-height: calc($height/$size * 100%);
   font-weight: $weight;
   font-size: $size;
+  color: $color;
+  letter-spacing: $letter-spacing;
 }
 
 @mixin flex($align: flex-start, $justify: flex-start) {
   display: flex;
   align-items: $align;
   justify-content: $justify;
+}
+
+@mixin flex-center() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @mixin flex-direction($direction: row) {
@@ -66,6 +59,19 @@ $desktop2KLgDOWN: (
 @mixin flex-wrap {
   display: flex;
   flex-wrap: wrap;
+}
+
+@mixin width-height($width: 0px, $height: 0px) {
+  width: $width;
+  height: $height;
+}
+
+@mixin position-absolute($top: null, $right: null, $bottom: null, $left: null) {
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
 }
 
 @mixin position-absolute-center {
@@ -82,5 +88,94 @@ $desktop2KLgDOWN: (
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: #00000073;
+  background-color: #242424;
+}
+
+
+@mixin adaptiv-font($pcSize, $mobSize) {
+  $addSize: $pcSize - $mobSize;
+  $maxWidth: $maxWidth - 320;
+  font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
+
+@mixin _1170 {
+  @media (max-width: 1170px) {
+    @content;
+  }
+}
+
+@mixin _979 {
+  @media (max-width: 979px) {
+    @content;
+  }
+}
+
+@mixin _768 {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin _600 {
+  @media (max-width: 600px) {
+    @content;
+  }
+}
+
+@mixin _480 {
+  @media (max-width: 480px) {
+    @content;
+  }
+}
+
+@mixin _350 {
+  @media (max-width: 350px) {
+    @content;
+  }
+}
+
+@mixin dark-theme-on {
+  $contentBackground: #000;
+  $background: #000;
+  $titleColor: #000;
+  ;
+  $productTextColor: #000;
+  ;
+  $sloganText: #000;
+  $footerColor: #000;
+  $themeSwitcherColor: #000;
+  $sunButtonColor: #000;
+}
+
+
+@mixin wideDesktop {
+  @media screen and (max-width: 1920px) {
+    @content;
+  }
+}
+
+
+@mixin desktop {
+  @media screen and (max-width: 1440px) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media screen and (max-width: 957px) {
+    @content;
+  }
+}
+
+@mixin tablets {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin phones {
+  @media screen and (max-width: 480px) {
+    @content;
+  }
 }

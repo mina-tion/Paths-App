@@ -2,7 +2,7 @@ import { createContext, useContext } from 'react'
 import { configure, makeObservable, observable } from 'mobx'
 import remotedev from 'mobx-remotedev'
 
-import { UserStore } from './Users'
+import { UserStore } from './Path'
 
 configure({ enforceActions: 'observed' })
 @remotedev({ global: true })
