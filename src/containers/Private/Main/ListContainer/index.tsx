@@ -2,136 +2,47 @@ import React from 'react'
 
 // style
 import styles from './styles.module.scss'
-import { Input, Space } from 'antd'
+import { Input } from 'antd'
+import { useStore } from 'stores'
 
 // components
 import ListItem from './listItem'
-import { Card } from 'antd';
 
-// images
-import scale from 'sources/images/scale.svg'
+import { IPaths } from 'types/User';
 
 // constants
 const { Search } = Input
 
-const paths = [
-  {
-    id: 1,
-    title: 'Path Title',
-    shortDesc: `Short description... Lorem ipsum dolor sit amet consectetur adipisicing elit.
-    Blanditiis dolor quas minus dignissimos distinctio deserunt illo incidunt facilis.`,
-    fullDesc: `Full description Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi deleniti sit
-    quasi voluptas, possimus, facilis, adipisci voluptatibus neque in eius illo molestiae
-    explicabo placeat omnis quis nobis. Odio consectetur, nisi nihil ut sequi optio asperiores
-    iure pariatur nemo, aperiam quisquam! Repellat ullam quae fugit temporibus quisquam veniam
-    in tenetur velit! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae,
-    quidem nesciunt vitae laborum ex consequuntur minus id officia laudantium saepe.`,
-    pathLength: '1.75km',
-    isFav: true,
-  },
-  {
-    id: 2,
-    title: 'Path Title',
-    shortDesc: `Short description... Lorem ipsum dolor sit amet consectetur adipisicing elit.
-    Blanditiis dolor quas minus dignissimos distinctio deserunt illo incidunt facilis.`,
-    fullDesc: `Full description Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi deleniti sit
-    quasi voluptas, possimus, facilis, adipisci voluptatibus neque in eius illo molestiae
-    explicabo placeat omnis quis nobis. Odio consectetur, nisi nihil ut sequi optio asperiores
-    iure pariatur nemo, aperiam quisquam! Repellat ullam quae fugit temporibus quisquam veniam
-    in tenetur velit! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae,
-    quidem nesciunt vitae laborum ex consequuntur minus id officia laudantium saepe.`,
-    pathLength: '1.75km',
-    isFav: false,
-  },
-  {
-    id: 3,
-    title: 'Path Title',
-    shortDesc: `Short description... Lorem ipsum dolor sit amet consectetur adipisicing elit.
-    Blanditiis dolor quas minus dignissimos distinctio deserunt illo incidunt facilis.`,
-    fullDesc: `Full description Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi deleniti sit
-    quasi voluptas, possimus, facilis, adipisci voluptatibus neque in eius illo molestiae
-    explicabo placeat omnis quis nobis. Odio consectetur, nisi nihil ut sequi optio asperiores
-    iure pariatur nemo, aperiam quisquam! Repellat ullam quae fugit temporibus quisquam veniam
-    in tenetur velit! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae,
-    quidem nesciunt vitae laborum ex consequuntur minus id officia laudantium saepe.`,
-    pathLength: '1.75km',
-    isFav: false,
-  },
-  {
-    id: 4,
-    title: 'Path Title',
-    shortDesc: `Short description... Lorem ipsum dolor sit amet consectetur adipisicing elit.
-    Blanditiis dolor quas minus dignissimos distinctio deserunt illo incidunt facilis.`,
-    fullDesc: `Full description Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi deleniti sit
-    quasi voluptas, possimus, facilis, adipisci voluptatibus neque in eius illo molestiae
-    explicabo placeat omnis quis nobis. Odio consectetur, nisi nihil ut sequi optio asperiores
-    iure pariatur nemo, aperiam quisquam! Repellat ullam quae fugit temporibus quisquam veniam
-    in tenetur velit! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae,
-    quidem nesciunt vitae laborum ex consequuntur minus id officia laudantium saepe.`,
-    pathLength: '1.75km',
-    isFav: false,
-  },
-  {
-    id: 5,
-    title: 'Path Title',
-    shortDesc: `Short description... Lorem ipsum dolor sit amet consectetur adipisicing elit.
-    Blanditiis dolor quas minus dignissimos distinctio deserunt illo incidunt facilis.`,
-    fullDesc: `Full description Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi deleniti sit
-    quasi voluptas, possimus, facilis, adipisci voluptatibus neque in eius illo molestiae
-    explicabo placeat omnis quis nobis. Odio consectetur, nisi nihil ut sequi optio asperiores
-    iure pariatur nemo, aperiam quisquam! Repellat ullam quae fugit temporibus quisquam veniam
-    in tenetur velit! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae,
-    quidem nesciunt vitae laborum ex consequuntur minus id officia laudantium saepe.`,
-    pathLength: '1.75km',
-    isFav: true,
-  },
-  {
-    id: 6,
-    title: 'Path Title',
-    shortDesc: `Short description... Lorem ipsum dolor sit amet consectetur adipisicing elit.
-    Blanditiis dolor quas minus dignissimos distinctio deserunt illo incidunt facilis.`,
-    fullDesc: `Full description Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi deleniti sit
-    quasi voluptas, possimus, facilis, adipisci voluptatibus neque in eius illo molestiae
-    explicabo placeat omnis quis nobis. Odio consectetur, nisi nihil ut sequi optio asperiores
-    iure pariatur nemo, aperiam quisquam! Repellat ullam quae fugit temporibus quisquam veniam
-    in tenetur velit! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae,
-    quidem nesciunt vitae laborum ex consequuntur minus id officia laudantium saepe.`,
-    pathLength: '1.75km',
-    isFav: false,
-  },
-  {
-    id: 7,
-    title: 'Path Title',
-    shortDesc: `Short description... Lorem ipsum dolor sit amet consectetur adipisicing elit.
-    Blanditiis dolor quas minus dignissimos distinctio deserunt illo incidunt facilis.`,
-    fullDesc: `Full description Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi deleniti sit
-    quasi voluptas, possimus, facilis, adipisci voluptatibus neque in eius illo molestiae explicabo placeat omnis quis nobis. Odio consectetur, nisi nihil ut sequi optio asperiores
-    iure pariatur nemo, aperiam quisquam! Repellat ullam quae fugit temporibus quisquam veniam in tenetur velit! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae,
-    quidem nesciunt vitae laborum ex consequuntur minus id officia laudantium saepe.`,
-    pathLength: '1.75km',
-    isFav: true,
-  },
-]
+interface Props {
+  paths: IPaths[] | null
+  setCurrentPathId(id: number): void
+  currentPathId: number
+}
 
-
-const onSearch = (value: string) => console.log(value)
-
-const ListContainer: React.FC = () => {
+const ListContainer: React.FC<Props> = ({ paths, setCurrentPathId, currentPathId }) => {
+  const { pathsStore } = useStore()
+  const onSearch = (value: string) => console.log(value)
+  const handlerClick = (id: number): void => {
+    currentPathId === id ? pathsStore.setCurrentPathId(0) : pathsStore.setCurrentPathId(id)
+  }
   return (
     <div className={styles.listContainer}>
       <Search placeholder="Search..." onSearch={onSearch} className={styles.search} />
 
       <ul className={styles.list}>
-        {paths.map(path => (
-          <ListItem
-            id={path.id}
-            title={path.title}
-            shortDesc={path.shortDesc}
-            fullDesc={path.fullDesc}
-            pathLength={path.pathLength}
-            isFav={path.isFav}
-          />
-        ))}
+        {pathsStore.paths &&
+          pathsStore.paths.map(path => (
+            <ListItem
+              key={path.id}
+              id={path.id}
+              title={path.title}
+              shortDesc={path.shortDesc}
+              pathLength={path.pathLength}
+              isFav={path.isFav}
+              setCurrentPathId={()=>handlerClick(path.id)}
+              currentPathId={currentPathId}
+            />
+          ))}
       </ul>
     </div>
   )

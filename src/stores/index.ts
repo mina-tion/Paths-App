@@ -2,15 +2,15 @@ import { createContext, useContext } from 'react'
 import { configure, makeObservable, observable } from 'mobx'
 import remotedev from 'mobx-remotedev'
 
-import { UserStore } from './Path'
+import { PathsStore } from './Paths'
 
 configure({ enforceActions: 'observed' })
 @remotedev({ global: true })
 export class RootStore {
-  @observable usersStore: UserStore
+  @observable pathsStore: PathsStore
 
   constructor() {
-    this.usersStore = new UserStore(this)
+    this.pathsStore = new PathsStore(this)
 
     makeObservable(this)
   }

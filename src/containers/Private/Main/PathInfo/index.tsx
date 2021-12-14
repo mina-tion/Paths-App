@@ -7,6 +7,9 @@ import styles from './styles.module.scss'
 import { Button } from 'antd'
 import classNames from 'classnames'
 // images
+interface Props { 
+
+}
 
 const PathInfo: React.FC = observer(() => {
   return (

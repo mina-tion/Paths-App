@@ -5,3 +5,12 @@ export interface IComments {
   email: string
   body: string
 }
+
+export interface IPaths {
+  id: number
+  title: string
+  shortDesc: string
+  fullDesc: string
+  pathLength: string
+  isFav: boolean
+}

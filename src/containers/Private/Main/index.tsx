@@ -1,24 +1,23 @@
-import React, { useEffect } from 'react'
+import React, { createContext } from 'react'
 import { useStore } from 'stores'
 import { useObserver } from 'mobx-react'
-import { DislikeOutlined, LikeOutlined } from '@ant-design/icons'
+
+// style
+import styles from './styles.module.scss'
 // components
 import Header from './Header'
 import ListContainer from './ListContainer'
 import PathInfo from './PathInfo'
 
-// style
-import styles from './styles.module.scss'
-
-
+export const DescContext = createContext({})
 
 const Main: React.FC = () => {
-  const { usersStore } = useStore()
+  const { pathsStore } = useStore()
 
- /*  useEffect(() => {
+  /*  useEffect(() => {
     usersStore.getData()
   }, []) */
-/* 
+  /* 
   const actions = [
     <span>
       <span>{<LikeOutlined />}</span>
@@ -39,10 +38,14 @@ const Main: React.FC = () => {
     <main className={styles.container}>
       <Header />
 
-      <main className={styles.content}>
-        <ListContainer />
-        <PathInfo />
-      </main>
+      <div className={styles.content}>
+        <ListContainer
+          paths={pathsStore.paths}
+          setCurrentPathId={() => pathsStore.setCurrentPathId}
+          currentPathId={pathsStore.currentPathId}
+        />
+        {pathsStore.currentPathId ? <PathInfo /> : <div>Select any path</div>}
+      </div>
     </main>
   ))
 }
