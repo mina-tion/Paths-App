@@ -1,7 +1,7 @@
 import React from 'react'
 // style
 import styles from './styles.module.scss'
-import ConfirmModalNew, { IModalHandles } from '../AddingModal'
+import ConfirmModalNew, { IModalHandles } from './../NewModal'
 import { useRef } from 'react'
 //components
 import { Button } from 'antd'

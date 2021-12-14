@@ -1,20 +1,19 @@
-import React, { useState, useImperativeHandle, ForwardRefRenderFunction } from 'react'
 //styles
 import styles from './styles.module.scss'
 //components
 import { Input, Button } from 'antd'
 //images
 import map from 'sources/images/map.svg'
-
+import Map from './Map'
 const { TextArea } = Input
 
 interface Props {
-  onChange: (e:any) => void
+  onChange: React.ChangeEventHandler<HTMLTextAreaElement> | undefined
 }
 
-const AddPathContainer: React.FC<Props> = (onChange) => {
+const AddPathContainer: React.FC<Props> = ({ onChange }) => {
   return (
-    <div className={styles.container}>
+    <div className={styles.content}>
       <div className={styles.inputsContainer}>
         <h3 className={styles.inputTitle}>Title</h3>
         <Input placeholder="Title here" className={styles.inputField} />
@@ -38,7 +37,10 @@ const AddPathContainer: React.FC<Props> = (onChange) => {
         <Button className={styles.button}>Add path</Button>
       </div>
       <div className={styles.mapContainer}>
-        <div className={styles.map}></div>
+        <Map
+          containerElement={<div style={{ height: `400px` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        />
         <button>Add marker</button>
       </div>
     </div>

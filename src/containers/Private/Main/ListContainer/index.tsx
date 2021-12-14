@@ -6,7 +6,7 @@ import { Input } from 'antd'
 import { useStore } from 'stores'
 
 // components
-import ListItem from './listItem'
+import ListItem from './ListItem'
 
 import { IPaths } from 'types/User';
 

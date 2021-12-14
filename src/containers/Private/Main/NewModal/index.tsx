@@ -7,7 +7,6 @@ import AddPathContainer from './AddPathContainer'
 //images
 import { CloseOutlined } from '@ant-design/icons'
 
-
 type Props = {
   titleHeader: string
   onConfirm: () => void
@@ -45,8 +44,7 @@ const Component: ForwardRefRenderFunction<IModalHandles, Props> = (
           <h1 className={styles.title}>{titleHeader}</h1>
           <CloseOutlined className={styles.closeBtn} onClick={close} />
         </div>
-        <AddPathContainer onChange={onChange}/>
-       
+        <AddPathContainer onChange={onChange} />
       </div>
     </Modal>
   )
