@@ -8,8 +8,8 @@ import { paths } from 'utils/paths'
 export class PathsStore {
   rootStore: RootStore
 
-  @observable paths: IPaths[] | null = paths;
-  @observable currentPathId: number = 0;
+  @observable paths: IPaths[] | null = paths
+  @observable currentPathId: number = 0
 
   constructor(rootStore: RootStore) {
     console.log(' store', this.currentPathId)
@@ -18,8 +18,12 @@ export class PathsStore {
   }
 
   @action setCurrentPathId(id: number) {
-    this.currentPathId = id;
+    this.currentPathId = id
     console.log(this.currentPathId)
+  }
+
+  getCurrentPath() {
+    return this.paths?.find(path => path.id === this.currentPathId)
   }
 
   @action

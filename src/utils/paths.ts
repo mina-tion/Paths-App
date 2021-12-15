@@ -12,6 +12,7 @@ export const paths = [
       quidem nesciunt vitae laborum ex consequuntur minus id officia laudantium saepe.`,
       pathLength: '1.75km',
       isFav: true,
+      markers: [],
     },
     {
       id: 2,
@@ -26,6 +27,7 @@ export const paths = [
       quidem nesciunt vitae laborum ex consequuntur minus id officia laudantium saepe.`,
       pathLength: '1.75km',
       isFav: false,
+      markers: [],
     },
     {
       id: 3,
@@ -40,6 +42,7 @@ export const paths = [
       quidem nesciunt vitae laborum ex consequuntur minus id officia laudantium saepe.`,
       pathLength: '1.75km',
       isFav: false,
+      markers: [],
     },
     {
       id: 4,
@@ -54,6 +57,7 @@ export const paths = [
       quidem nesciunt vitae laborum ex consequuntur minus id officia laudantium saepe.`,
       pathLength: '1.75km',
       isFav: false,
+      markers: [],
     },
     {
       id: 5,
@@ -68,6 +72,7 @@ export const paths = [
       quidem nesciunt vitae laborum ex consequuntur minus id officia laudantium saepe.`,
       pathLength: '1.75km',
       isFav: true,
+      markers: [],
     },
     {
       id: 6,
@@ -82,6 +87,7 @@ export const paths = [
       quidem nesciunt vitae laborum ex consequuntur minus id officia laudantium saepe.`,
       pathLength: '1.75km',
       isFav: false,
+      markers: [],
     },
     {
       id: 7,
@@ -94,5 +100,6 @@ export const paths = [
       quidem nesciunt vitae laborum ex consequuntur minus id officia laudantium saepe.`,
       pathLength: '1.75km',
       isFav: true,
+      markers: [],
     },
   ]

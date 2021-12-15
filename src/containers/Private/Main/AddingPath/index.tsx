@@ -6,7 +6,10 @@ import { Input, Button } from 'antd'
 import map from 'sources/images/map.svg'
 import Map from 'components/Map'
 import { useStore } from 'stores'
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
+import { schema } from 'utils/validation'
 //constants
 const { TextArea } = Input
 
@@ -18,10 +21,57 @@ const AddingPath: React.FC = () => {
 
   const { pathsStore } = useStore()
 
+  const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({
+		resolver: yupResolver(schema),
+	});
+
   return (
     <div className={styles.content}>
       <div className={styles.inputsContainer}>
         <h3 className={styles.inputTitle}>Title</h3>
+{/* 
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+				<InputField
+					register={register}
+					type='text'
+					title='First name'
+					name='firstName'
+					errMessage={errors.firstName?.message}
+					onChange={handlerChange}
+				/>
+				<InputField
+					register={register}
+					type='text'
+					title='E-mail'
+					name='email'
+					errMessage={errors.email?.message}
+					onChange={() => {}}
+				/>
+				<InputField
+					register={register}
+					type='password'
+					title='Password'
+					name='password'
+					errMessage={errors.password?.message}
+					onChange={() => {}}
+				/>
+				<InputField
+					register={register}
+					type='password'
+					title='Password'
+					name='passwordConfirmation'
+					errMessage={errors.passwordConfirmation?.message}
+					onChange={() => {}}
+				/>
+
+				<input type='submit' value='Sign up' className={styles.submitButton} />
+			</form> */}
+
+
         <Input placeholder="Title here" className={styles.inputField} />
 
         <h3 className={styles.inputTitle}>Short description</h3>
@@ -48,8 +98,9 @@ const AddingPath: React.FC = () => {
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `400px` }} />}
           mapElement={<div style={{ height: `500px` }} />}
-        />
-        <button>Add marker</button>
+        >
+          <button>Add marker</button>
+        </Map>
       </div>
     </div>
   )
