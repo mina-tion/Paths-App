@@ -7,7 +7,6 @@
 
   .brandContainer {
     @include flex(flex-end, center);
-    // align-content: center;
 
     .name {
       @include text-style(40px, 500, 36px);

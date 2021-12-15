@@ -19,7 +19,7 @@ interface Props {
   currentPathId: number
 }
 
-const ListContainer: React.FC<Props> = ({ paths, setCurrentPathId, currentPathId }) => {
+const List: React.FC<Props> = ({ paths, setCurrentPathId, currentPathId }) => {
   const { pathsStore } = useStore()
   const onSearch = (value: string) => console.log(value)
   const handlerClick = (id: number): void => {
@@ -48,4 +48,4 @@ const ListContainer: React.FC<Props> = ({ paths, setCurrentPathId, currentPathId
   )
 }
 
-export default ListContainer
+export default List

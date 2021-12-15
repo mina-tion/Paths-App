@@ -3,11 +3,12 @@ import React, { useState, useImperativeHandle, ForwardRefRenderFunction } from '
 import styles from './styles.module.scss'
 //components
 import Modal from '@mui/material/Modal'
-import AddPathContainer from './AddPathContainer'
+
 //images
 import { CloseOutlined } from '@ant-design/icons'
 
 type Props = {
+  children: React.ReactNode,
   titleHeader: string
   onConfirm: () => void
 }
@@ -18,7 +19,7 @@ export interface IModalHandles {
 }
 
 const Component: ForwardRefRenderFunction<IModalHandles, Props> = (
-  { titleHeader, onConfirm },
+  { titleHeader, children, onConfirm },
   ref
 ) => {
   const [visible, setVisible] = useState(false)
@@ -33,10 +34,6 @@ const Component: ForwardRefRenderFunction<IModalHandles, Props> = (
     close,
   }))
 
-  const onChange = (e: any) => {
-    console.log('Change:', e.target.value)
-  }
-
   return (
     <Modal open={visible} onClose={close}>
       <div className={styles.container}>
@@ -44,7 +41,8 @@ const Component: ForwardRefRenderFunction<IModalHandles, Props> = (
           <h1 className={styles.title}>{titleHeader}</h1>
           <CloseOutlined className={styles.closeBtn} onClick={close} />
         </div>
-        <AddPathContainer onChange={onChange} />
+        {children}
+        {/* <AddingPath /> */}
       </div>
     </Modal>
   )

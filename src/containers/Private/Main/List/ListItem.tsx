@@ -26,8 +26,6 @@ const ListItem: React.FC<Props> = ({
   setCurrentPathId,
   currentPathId,
 }) => {
-
-
   return (
     <Card className={styles.listItem}>
       <FullscreenOutlined style={{ fontSize: 30 }} />

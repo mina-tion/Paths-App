@@ -1,14 +1,14 @@
 import React from 'react'
 // style
 import styles from './styles.module.scss'
-import ConfirmModalNew, { IModalHandles } from './../NewModal'
+import NewModal, { IModalHandles } from 'components/NewModal'
 import { useRef } from 'react'
 //components
 import { Button } from 'antd'
 import { FullscreenOutlined } from '@ant-design/icons'
+import AddingPath from 'containers/Private/Main/AddingPath'
 
 const Header: React.FC = () => {
-
   let modalCalendar = useRef<IModalHandles>(null)
 
   const confirmHandler = () => {}
@@ -16,7 +16,7 @@ const Header: React.FC = () => {
   const handlerClick = () => {
     modalCalendar.current?.show()
   }
-  
+
   return (
     <header className={styles.header}>
       <div className={styles.brandContainer}>
@@ -27,11 +27,9 @@ const Header: React.FC = () => {
         Add path
       </Button>
 
-      <ConfirmModalNew
-        ref={modalCalendar}
-        titleHeader='Add new path'
-        onConfirm={confirmHandler}
-      />
+      <NewModal ref={modalCalendar} titleHeader="Add new path" onConfirm={confirmHandler}>
+        <AddingPath />
+      </NewModal>
     </header>
   )
 }

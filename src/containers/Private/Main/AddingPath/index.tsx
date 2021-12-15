@@ -4,14 +4,20 @@ import styles from './styles.module.scss'
 import { Input, Button } from 'antd'
 //images
 import map from 'sources/images/map.svg'
-import Map from './Map'
+import Map from 'components/Map'
+import { useStore } from 'stores'
+
+//constants
 const { TextArea } = Input
 
-interface Props {
-  onChange: React.ChangeEventHandler<HTMLTextAreaElement> | undefined
-}
 
-const AddPathContainer: React.FC<Props> = ({ onChange }) => {
+const AddingPath: React.FC = () => {
+  const onChange = (e: any) => {
+    console.log('Change:', e.target.value)
+  }
+
+  const { pathsStore } = useStore()
+
   return (
     <div className={styles.content}>
       <div className={styles.inputsContainer}>
@@ -38,8 +44,10 @@ const AddPathContainer: React.FC<Props> = ({ onChange }) => {
       </div>
       <div className={styles.mapContainer}>
         <Map
+          googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyA9bslaj5Bl5nLuQQXe8rr_PkhDvvZqzMs"
+          loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `400px` }} />}
-          mapElement={<div style={{ height: `100%` }} />}
+          mapElement={<div style={{ height: `500px` }} />}
         />
         <button>Add marker</button>
       </div>
@@ -47,4 +55,4 @@ const AddPathContainer: React.FC<Props> = ({ onChange }) => {
   )
 }
 
-export default AddPathContainer
+export default AddingPath
