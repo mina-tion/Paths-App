@@ -7,7 +7,7 @@ export interface IComments {
 }
 
 export interface IPath {
-  id: number
+  id: string
   title: string
   shortDescription: string
   fullDescription: string

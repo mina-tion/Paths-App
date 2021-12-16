@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 // style
 import styles from './styles.module.scss'
@@ -17,21 +17,35 @@ interface Props {
   paths: IPath[] | null
   setCurrentPathId(id: number): void
   currentPathId: number
+
 }
 
 const List: React.FC<Props> = ({ paths, setCurrentPathId, currentPathId }) => {
   const { pathsStore } = useStore()
-  const onSearch = (value: string) => console.log(value)
+  const [filteredPaths, setFilteredPaths] = useState(paths)
+
+  useEffect(() => {
+    setFilteredPaths(paths)
+  }, [paths])
+  console.log(paths)
+
+  const onSearch = (e: any) => {
+    e.target.value
+      ? setFilteredPaths(pathsStore.filterPaths(e.target.value)!)
+      : setFilteredPaths(paths)
+  }
+
   const handlerClick = (id: number): void => {
     currentPathId === id ? pathsStore.setCurrentPathId(0) : pathsStore.setCurrentPathId(id)
   }
+  console.log('filter', filteredPaths)
   return (
     <div className={styles.listContainer}>
-      <Search placeholder="Search..." onSearch={onSearch} className={styles.search} />
+      <Search placeholder="Search..." onChange={onSearch} className={styles.search} />
 
       <ul className={styles.list}>
-        {pathsStore.paths &&
-          pathsStore.paths.map(path => (
+        {filteredPaths &&
+          filteredPaths.map(path => (
             <ListItem
               key={path.id}
               id={path.id}
@@ -39,7 +53,7 @@ const List: React.FC<Props> = ({ paths, setCurrentPathId, currentPathId }) => {
               shortDescription={path.shortDescription}
               pathLength={path.pathLength}
               isFav={path.isFav}
-              setCurrentPathId={()=>handlerClick(path.id)}
+              setCurrentPathId={() => handlerClick(path.id)}
               currentPathId={currentPathId}
             />
           ))}

@@ -10,7 +10,6 @@ import Header from './Header'
 import List from './List'
 import PathInfo from './PathInfo'
 import AddingPath from 'containers/Private/Main/AddingPath'
-import { PathsStore } from 'stores/Paths'
 
 const Main: React.FC = () => {
   const { pathsStore } = useStore()
@@ -48,7 +47,7 @@ const Main: React.FC = () => {
       </div>
 
       <NewModal ref={modalAdding} titleHeader="Add new path">
-        <AddingPath />
+        <AddingPath close={()=>modalAdding.current?.close()}/>
       </NewModal>
     </main>
   ))

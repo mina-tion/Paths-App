@@ -14,9 +14,13 @@
     padding: 0;
 
     .listItem {
+      position: relative;
+      height: 90px;
       &:first-child {
         margin-top: 20px;
       }
+
+      padding-right: 30px;
 
       width: 100%;
       background-color: #0000000a;
@@ -29,6 +33,7 @@
       }
 
       .textContainer {
+        padding-left: 10px;
         height: 80%;
 
         .titleContainer {
@@ -53,6 +58,7 @@
       }
 
       .arrow {
+        @include position-absolute($right: 10px, $top: 40%);
         margin-left: 10px;
         @include text-style(15px, 800);
 

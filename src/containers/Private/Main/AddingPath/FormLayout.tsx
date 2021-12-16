@@ -11,8 +11,12 @@ import { useStore } from 'stores'
 const { TextArea } = Input
 type LayoutType = Parameters<typeof Form>[0]['layout']
 
-const FormLayout: React.FC = () => {
-  const  { pathsStore } = useStore()
+interface Props {
+  close: () => void
+}
+
+const FormLayout: React.FC<Props> = ({ close }) => {
+  const { pathsStore } = useStore()
   const [form] = Form.useForm()
   const [formLayout, setFormLayout] = useState<LayoutType>('vertical')
   const onFormLayoutChange = ({ layout }: { layout: LayoutType }) => {
@@ -41,9 +45,8 @@ const FormLayout: React.FC = () => {
   }
 
   const onFinish = (values: any) => {
-    pathsStore.addValues(values)
-    console.log(values)
-    pathsStore.addPath()
+    pathsStore.addPath(values)
+    close()
   }
 
   return (

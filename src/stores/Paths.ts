@@ -8,15 +8,16 @@ import { paths } from 'utils/paths'
 export class PathsStore {
   rootStore: RootStore
 
-  @observable paths: IPath[] | null = paths
+  @observable paths: Array<IPath> | null = []
   @observable currentPathId: number = 0
-  tempPath: IPath = {
+
+  @observable tempPath: IPath = {
     id: 0,
     title: '',
     shortDescription: '',
     fullDescription: '',
     pathLength: '',
-    isFav: true,
+    isFav: false,
     markers: [],
   }
 
@@ -31,16 +32,34 @@ export class PathsStore {
 
   @action changeFav(currentPath: IPath) {
     currentPath.isFav = !currentPath.isFav
+    this.sortPaths()
   }
 
-  addValues(value: any) {
-    console.log(this.tempPath)
-    Object.assign(this.tempPath, value.path)
-    console.log(this.tempPath)
+  @action setSearchString(currentPath: IPath) {
+    currentPath.isFav = !currentPath.isFav
+    this.sortPaths()
   }
 
-  addPath() {
-    this.paths?.push(this.tempPath)
+  filterPaths(value: string) {
+
+    console.log(this.paths?.filter(
+      path => path.title.indexOf(value) + 1 || path.fullDescription.indexOf(value) + 1
+    ))
+    return this.paths?.filter(
+      path => path.title.indexOf(value) + 1 || path.fullDescription.indexOf(value) + 1
+    )
+  }
+
+  sortPaths() {
+    if (this.paths)
+      this.paths! = this.paths!.sort(
+        (a, b) => (a.isFav as unknown as number) - (b.isFav as unknown as number)
+      ).reverse()
+  }
+
+  addPath(values: any) {
+    Object.assign(this.tempPath, values.path)
+    this.paths = [...this.paths!, this.tempPath]
   }
 
   removePath(currentPath: IPath) {

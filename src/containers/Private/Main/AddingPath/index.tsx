@@ -7,13 +7,18 @@ import styles from './styles.module.scss'
 import Map from 'components/Map'
 import FormLayout from './FormLayout'
 
-const AddingPath: React.FC = () => {
+
+interface Props { 
+	close: ()=>void
+}
+
+const AddingPath: React.FC<Props> = ({close}) => {
   //   /const { pathsStore } = useStore()
 
   return (
     <div className={styles.content}>
       <div className={styles.inputsContainer}>
-        <FormLayout />
+        <FormLayout close={close}/>
       </div>
 
       <div className={styles.mapContainer}>
