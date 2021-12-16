@@ -10,7 +10,7 @@ import { CloseOutlined } from '@ant-design/icons'
 type Props = {
   children: React.ReactNode,
   titleHeader: string
-  onConfirm: () => void
+  onConfirm?: () => void
 }
 
 export interface IModalHandles {

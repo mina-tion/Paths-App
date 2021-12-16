@@ -1,29 +1,64 @@
 import { api } from 'config'
 import { observable, action, runInAction, makeAutoObservable } from 'mobx'
 
-import { IPaths } from 'types/User'
+import { IPath } from 'types/User'
 import { RootStore } from 'stores'
 import { paths } from 'utils/paths'
 
 export class PathsStore {
   rootStore: RootStore
 
-  @observable paths: IPaths[] | null = paths
+  @observable paths: IPath[] | null = paths
   @observable currentPathId: number = 0
+  tempPath: IPath = {
+    id: 0,
+    title: '',
+    shortDescription: '',
+    fullDescription: '',
+    pathLength: '',
+    isFav: true,
+    markers: [],
+  }
 
   constructor(rootStore: RootStore) {
-    console.log(' store', this.currentPathId)
     this.rootStore = rootStore
     makeAutoObservable(this)
   }
 
   @action setCurrentPathId(id: number) {
     this.currentPathId = id
-    console.log(this.currentPathId)
+  }
+
+  @action changeFav(currentPath: IPath) {
+    currentPath.isFav = !currentPath.isFav
+  }
+
+  addValues(value: any) {
+    console.log(this.tempPath)
+    Object.assign(this.tempPath, value.path)
+    console.log(this.tempPath)
+  }
+
+  addPath() {
+    this.paths?.push(this.tempPath)
+  }
+
+  removePath(currentPath: IPath) {
+    this.paths = this.paths?.filter(path => path.id !== currentPath.id) || []
+  }
+
+  clearMarkers() {
+    this.tempPath.markers = []
   }
 
   getCurrentPath() {
     return this.paths?.find(path => path.id === this.currentPathId)
+  }
+
+  addMarker(position: { lat: number; lng: number }) {
+    this.tempPath?.markers.push(position)
+    console.log(position)
+    console.log(this.tempPath?.markers)
   }
 
   @action

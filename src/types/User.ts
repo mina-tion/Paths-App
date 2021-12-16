@@ -6,11 +6,12 @@ export interface IComments {
   body: string
 }
 
-export interface IPaths {
+export interface IPath {
   id: number
   title: string
-  shortDesc: string
-  fullDesc: string
+  shortDescription: string
+  fullDescription: string
   pathLength: string
   isFav: boolean
+  markers: Array<object>
 }

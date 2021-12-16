@@ -9,37 +9,47 @@
   border: 2px solid #000000c7;
   overflow: hidden; */
 
-  .header {
-    padding: 10px 15px 10px 15px;
-    border-bottom: 1px solid #000000c7;
-    @include flex(center, space-between);
+.header {
+  padding: 10px 15px 10px 15px;
+  border-bottom: 1px solid #000000c7;
+  @include flex(center, space-between);
 
-    .title {
-      @include text-style(18px);
-    }
-
-    .closeBtn {
-      @include text-style(25px);
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
+  .title {
+    @include text-style(18px);
   }
 
-  .content {
-    height: 100%;
-    @include flex(center, space-between);
+  .closeBtn {
+    @include text-style(25px);
 
-    .inputsContainer {
-      @include flex(center, flex-start);
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.content {
+  height: 100%;
+  @include flex(center, space-between);
+
+  .inputsContainer {
+    padding: 20px 20px 30px 20px;
+    @include width-height(50%, 100%);
+   
+    .form {
+      @include width-height(100%, 100%);
       @include flex-direction(column);
-      padding: 20px 20px 30px 20px;
-      @include width-height(50%, 100%);
+      @include flex(center, flex-start);
 
       .button {
         @include text-style(16px, 500, 24px);
         @include width-height(220px, 70px);
+
+        background-color: #ffffff;
+        border: 0.3px solid;
+
+        &:hover {
+          cursor: pointer;
+        }
 
         &::after {
           content: '  ✓';
@@ -48,17 +58,11 @@
         }
       }
 
-      .inputTitle {
-        @include text-style(18px, 500, 24px);
-        align-self: flex-start;
-        margin-bottom: 5px;
-      }
-
       .inputField {
         width: 100%;
 
         &:not(:last-child) {
-          margin-bottom: 20px;
+          margin-bottom: 10px;
         }
       }
 
@@ -75,18 +79,19 @@
           @include text-style(22px, 500, 24px);
         }
       }
-
     }
 
-    .mapContainer {
-      @include width-height(50%, 100%);
-      padding: 10px;
-      border-left: 1px solid;
+  }
+}
 
-      .map {
+.mapContainer {
+  @include width-height(50%, 100%);
+  padding: 30px;
+  border-left: 1px solid;
 
-        @include width-height(100%, 100%);
-      }
-    }
+  .map {
+
+    @include width-height(100%, 100%);
   }
 
+}

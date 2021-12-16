@@ -11,7 +11,7 @@ import { Card } from 'antd'
 interface Props {
   id: number
   title: string
-  shortDesc: string
+  shortDescription: string
   pathLength: string
   isFav: boolean
   setCurrentPathId: React.MouseEventHandler<HTMLSpanElement> | undefined
@@ -20,7 +20,7 @@ interface Props {
 
 const ListItem: React.FC<Props> = ({
   title,
-  shortDesc,
+  shortDescription,
   pathLength,
   isFav,
   setCurrentPathId,
@@ -29,10 +29,13 @@ const ListItem: React.FC<Props> = ({
   return (
     <Card className={styles.listItem}>
       <FullscreenOutlined style={{ fontSize: 30 }} />
-      {isFav && <StarFilled color="#1890FF" />}
       <div className={styles.textContainer}>
-        <h3 className={classNames(styles.title, styles.favorite)}>{title}</h3>
-        <p className={styles.description}>{shortDesc}</p>
+        <div className={styles.titleContainer}>
+          {isFav && <StarFilled style={{ color: '#1890FF' }} />}
+          <h3 className={classNames(styles.title, styles.favorite)}>{title}</h3>
+        </div>
+
+        <p className={styles.description}>{shortDescription}</p>
       </div>
       <h2 className={styles.lengthText}>{pathLength}</h2>
       <RightOutlined className={styles.arrow} onClick={setCurrentPathId} />

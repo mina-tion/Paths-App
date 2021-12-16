@@ -5,22 +5,19 @@ import styles from './styles.module.scss'
 //components
 
 const MapC = withScriptjs(
-
-  withGoogleMap(({}) => {
+  withGoogleMap(() => {
     const handlerClick = (e: any): void => {
       console.log(e.latLng.lat())
     }
 
     return (
-      <div className={styles.mapWrapper}>
-        <GoogleMap
-          defaultZoom={8}
-          defaultCenter={{ lat: 48.4507, lng: 34.983 }}
-          onClick={handlerClick}
-        >
-
-        </GoogleMap>
-      </div>
+      <GoogleMap
+        defaultZoom={8}
+        defaultCenter={{ lat: 48.4507, lng: 34.983 }}
+        onClick={handlerClick}
+      >
+        {}
+      </GoogleMap>
     )
   })
 )

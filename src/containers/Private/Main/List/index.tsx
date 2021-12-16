@@ -8,13 +8,13 @@ import { useStore } from 'stores'
 // components
 import ListItem from './ListItem'
 
-import { IPaths } from 'types/User';
+import { IPath } from 'types/User';
 
 // constants
 const { Search } = Input
 
 interface Props {
-  paths: IPaths[] | null
+  paths: IPath[] | null
   setCurrentPathId(id: number): void
   currentPathId: number
 }
@@ -36,7 +36,7 @@ const List: React.FC<Props> = ({ paths, setCurrentPathId, currentPathId }) => {
               key={path.id}
               id={path.id}
               title={path.title}
-              shortDesc={path.shortDesc}
+              shortDescription={path.shortDescription}
               pathLength={path.pathLength}
               isFav={path.isFav}
               setCurrentPathId={()=>handlerClick(path.id)}
