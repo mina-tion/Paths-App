@@ -1,13 +1,24 @@
 import { api } from 'config'
-import { observable, action, runInAction, makeAutoObservable } from 'mobx'
+import { observable, action, runInAction, makeAutoObservable, autorun, set, toJS } from 'mobx'
 import { v4 as uuidv4 } from 'uuid'
 import { IPath } from 'types/User'
 import { RootStore } from 'stores'
 import _ from 'lodash'
 
+export function autoSave(_this: any, name: string) {
+  const storedJson = localStorage.getItem(name)
+  if (storedJson) {
+    set(_this, JSON.parse(storedJson))
+  }
+  autorun(() => {
+    const value = toJS(_this)
+    localStorage.setItem(name, JSON.stringify(value))
+  })
+}
+
 export class PathsStore {
   rootStore: RootStore
-
+  public accessToken: string
   @observable paths: Array<IPath> = []
   @observable currentPathId: string = ''
   @observable tempPath: IPath = {
@@ -24,6 +35,8 @@ export class PathsStore {
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
     makeAutoObservable(this)
+    this.accessToken = ''
+    autoSave(this, 'paths')
   }
 
   @action setDirections = (markers: Array<object>, directionsService: any) => {
@@ -45,11 +58,15 @@ export class PathsStore {
           let distances = _.flatMap(result.routes, route =>
             _.flatMap(route.legs, leg => leg.distance.value)
           )
-          let distance = Math.round(_.sum(distances) / 1000)
+          let distance = Number((_.sum(distances) / 1000).toFixed(2))
           this.tempPath = { ...this.tempPath, directions: result, distance: distance }
         } else console.error(`error fetching directions ${result}`)
       }
     )
+  }
+
+  @action removePath(currentPath: IPath) {
+    this.paths = this.paths?.filter(path => path.id !== currentPath.id) || []
   }
 
   @action setCurrentPathId(id: string) {
@@ -96,15 +113,11 @@ export class PathsStore {
     )
   }
 
-  sortPaths() {
+  @action sortPaths() {
     if (this.paths)
-      this.paths! = this.paths!.sort(
+      this.paths = this.paths!.sort(
         (a, b) => (a.isFav as unknown as number) - (b.isFav as unknown as number)
       ).reverse()
-  }
-
-  @action removePath(currentPath: IPath) {
-    this.paths = this.paths?.filter(path => path.id !== currentPath.id) || []
   }
 
   @action clearMarkers() {
@@ -115,14 +128,4 @@ export class PathsStore {
     return this.paths?.find(path => path.id === this.currentPathId)
   }
 
-  @action
-  async getData(): Promise<any> {
-    try {
-      const { data } = await api.get('comments')
-      runInAction(() => (this.paths = data.slice(1, 20)))
-      return data
-    } catch (error) {
-      console.log(error, 'Failed to get data')
-    }
-  }
 }

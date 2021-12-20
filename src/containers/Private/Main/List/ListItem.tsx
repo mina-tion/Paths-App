@@ -7,16 +7,16 @@ import styles from './styles.module.scss'
 import { FullscreenOutlined, RightOutlined, StarFilled } from '@ant-design/icons'
 import { Card } from 'antd'
 import { IPath } from 'types/User'
+import { useObserver } from 'mobx-react'
 
 // constants
 interface Props {
   path: IPath
   setCurrentPathId: React.MouseEventHandler<HTMLSpanElement> | undefined
-  currentPathId: string
 }
 
-const ListItem: React.FC<Props> = ({ path, setCurrentPathId, currentPathId }) => {
-  return (
+const ListItem: React.FC<Props> = ({ path, setCurrentPathId}) => {
+  return useObserver(()=>(
     <Card className={styles.listItem}>
       <FullscreenOutlined style={{ fontSize: 30 }} />
 
@@ -34,7 +34,7 @@ const ListItem: React.FC<Props> = ({ path, setCurrentPathId, currentPathId }) =>
 
       <RightOutlined className={styles.arrow} onClick={setCurrentPathId} />
     </Card>
-  )
+  ))
 }
 
 export default ListItem
