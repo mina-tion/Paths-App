@@ -17,7 +17,7 @@ export function autoSave(_this: any, name: string) {
 
 export class PathsStore {
   rootStore: RootStore
-  
+
   @observable paths: Array<IPath> = []
   @observable currentPathId: string = ''
   @observable tempPathData: IPath = {
@@ -26,7 +26,7 @@ export class PathsStore {
     shortDescription: '',
     fullDescription: '',
     distance: 0,
-    isFav: false,
+    isFavorite: false,
     markers: [],
     directions: null,
   }
@@ -57,6 +57,8 @@ export class PathsStore {
             _.flatMap(route.legs, leg => leg.distance.value)
           )
           let distance = Number((_.sum(distances) / 1000).toFixed(2))
+
+
           this.tempPathData = { ...this.tempPathData, directions: result, distance: distance }
         } else console.error(`error fetching directions ${result}`)
       }
@@ -71,8 +73,8 @@ export class PathsStore {
     this.currentPathId = id
   }
 
-  @action changeFav(currentPath: IPath) {
-    currentPath.isFav = !currentPath.isFav
+  @action changeFavorite(currentPath: IPath) {
+    currentPath.isFavorite = !currentPath.isFavorite
     this.sortPaths()
   }
 
@@ -99,7 +101,7 @@ export class PathsStore {
       shortDescription: '',
       fullDescription: '',
       distance: 0,
-      isFav: false,
+      isFavorite: false,
       markers: [],
       directions: null,
     }
@@ -111,10 +113,10 @@ export class PathsStore {
     )
   }
 
-  @action sortPaths() {
+  sortPaths() {
     if (this.paths)
       this.paths = this.paths!.sort(
-        (a, b) => (a.isFav as unknown as number) - (b.isFav as unknown as number)
+        (a, b) => (a.isFavorite as unknown as number) - (b.isFavorite as unknown as number)
       ).reverse()
   }
 

@@ -15,15 +15,15 @@ interface Props {
   setCurrentPathId: React.MouseEventHandler<HTMLSpanElement> | undefined
 }
 
-const ListItem: React.FC<Props> = ({ path, setCurrentPathId}) => {
-  return useObserver(()=>(
+const ListItem: React.FC<Props> = ({ path, setCurrentPathId }) => {
+  return useObserver(() => (
     <Card className={styles.listItem}>
       <FullscreenOutlined style={{ fontSize: 30 }} />
 
       <div className={styles.container}>
         <div className={styles.textContainer}>
           <div className={styles.titleContainer}>
-            {path.isFav && <StarFilled style={{ color: '#1890FF' }} />}
+            {path.isFavorite && <StarFilled style={{ color: '#1890FF' }} />}
             <h3 className={classNames(styles.title, styles.favorite)}>{path.title}</h3>
           </div>
 

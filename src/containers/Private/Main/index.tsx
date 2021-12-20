@@ -34,7 +34,7 @@ const Main: React.FC = () => {
         {currentPath ? (
           <PathInfo
             path={currentPath}
-            changeFav={() => pathsStore.changeFav(currentPath)}
+            changeFavorite={() => pathsStore.changeFavorite(currentPath)}
             removePath={() => pathsStore.removePath(currentPath)}
             setDirections={(markers: Array<object>, directionService: any) =>
               pathsStore.setDirections(markers, directionService)

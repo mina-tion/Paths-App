@@ -12,7 +12,7 @@ export interface IPath {
   shortDescription: string
   fullDescription: string
   distance: number
-  isFav: boolean
+  isFavorite: boolean
   markers: Array<object>
   directions: any
 }

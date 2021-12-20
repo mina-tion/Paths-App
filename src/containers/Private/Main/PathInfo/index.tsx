@@ -12,12 +12,12 @@ import { IPath } from 'types/User'
 // images
 interface Props {
   path: IPath
-  changeFav: () => void
+  changeFavorite: () => void
   removePath: () => void
   setDirections: (markers: Array<object>, directionService: any) => void
 }
 
-const PathInfo: React.FC<Props> = observer(({ path, changeFav, removePath, setDirections }) => {
+const PathInfo: React.FC<Props> = observer(({ path, changeFavorite, removePath, setDirections }) => {
   return (
     <div className={styles.pathInfoContainer}>
       <div className={styles.header}>
@@ -38,8 +38,8 @@ const PathInfo: React.FC<Props> = observer(({ path, changeFav, removePath, setDi
         />
       </div>
 
-      <Button type="text" className={classNames(styles.button, styles.blue)} onClick={changeFav}>
-        {path.isFav ? 'Remove from favorites' : 'Add to favorites'}
+      <Button type="text" className={classNames(styles.button, styles.blue)} onClick={changeFavorite}>
+        {path.isFavorite ? 'Remove from favorites' : 'Add to favorites'}
       </Button>
       <Button type="text" className={classNames(styles.button, styles.red)} onClick={removePath}>
         Remove
