@@ -3,4 +3,4 @@ export const validateMessages = {
     types: {
       string: '${label} is not a valid string!',
     },
-  }
+}

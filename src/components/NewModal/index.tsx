@@ -1,6 +1,4 @@
 import React, { useState, useImperativeHandle, ForwardRefRenderFunction } from 'react'
-//styles
-import styles from './styles.module.scss'
 //components
 import Modal from '@mui/material/Modal'
 

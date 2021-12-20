@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { observer, useObserver } from 'mobx-react'
+import { observer } from 'mobx-react'
 import {
   withGoogleMap,
   withScriptjs,
@@ -12,10 +12,9 @@ import {
 //styles
 import styles from './styles.module.scss'
 //components
-import { useStore } from 'stores'
 
 interface Props {
-  setDirections: (markers: Array<object>, directionService: any) => void
+  setDirections: Function
   handlerClick?: (e: any) => void
   markers: Array<object>
   directions: any
