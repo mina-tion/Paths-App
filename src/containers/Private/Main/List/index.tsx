@@ -7,12 +7,12 @@ import { useStore } from 'stores'
 
 // components
 import ListItem from './ListItem'
-import { useObserver } from 'mobx-react'
+import { observer } from 'mobx-react'
 
 // constants
 const { Search } = Input
 
-const List: FC = () => {
+const List: FC = observer(() => {
   const { pathsStore } = useStore()
   const [filteredPaths, setFilteredPaths] = useState(pathsStore.paths)
   const onSearch = (e: any) => {
@@ -28,22 +28,18 @@ const List: FC = () => {
 
   const handlerClick = (id: string) => pathsStore.setCurrentPath(id)
 
-  return useObserver(()=>(
+  return (
     <div className={styles.listContainer}>
       <Search placeholder="Search..." onChange={onSearch} className={styles.search} />
 
       <ul className={styles.list}>
         {filteredPaths &&
           filteredPaths.map(path => (
-            <ListItem
-              key={path.id}
-              path={path}
-              setCurrentPath={handlerClick}
-            />
+            <ListItem key={path.id} path={path} setCurrentPath={handlerClick} />
           ))}
       </ul>
     </div>
-  ))
-}
+  )
+})
 
 export default List

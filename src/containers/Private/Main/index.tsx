@@ -20,7 +20,7 @@ const Main: FC = () => {
     pathsStore.setDirections(markers, directionService)
   }
   const changeFavoriteHandler = () => pathsStore.changeFavorite()
-  const removePathHandler = () => pathsStore.changeFavorite()
+  const removePathHandler = () => pathsStore.removePath()
 
   return useObserver(() => (
     <main className={styles.container}>

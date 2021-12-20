@@ -39,7 +39,8 @@ export class PathsStore {
     autoSave(this, 'paths')
   }
 
-  @action setDirections = (markers: Array<object>, directionsService: any) => {
+  @action
+  setDirections = (markers: Array<object>, directionsService: any) => {
     directionsService.route(
       {
         origin: markers[0],
@@ -64,28 +65,36 @@ export class PathsStore {
     )
   }
 
-  @action removePath() {
-    this.paths = this.paths?.filter(path => path.id !== this.currentPath?.id) || []
+  @action
+  removePath() {
+    runInAction(() => {
+      this.paths = this.paths?.filter(path => path.id !== this.currentPath?.id) || []
+      this.currentPath = null
+    })
   }
 
-  @action setCurrentPath(id?: string) {
-    const result = this.paths.find(path => path.id === id)
-    this.currentPath = !this.currentPath || result ? null : result ?? null
+  @action
+  setCurrentPath(id?: string) {
+    const result: any = this.paths.find(path => path.id === id)
+    this.currentPath = this.currentPath?.id === id ? null : result
   }
 
-  @action changeFavorite() {
+  @action
+  changeFavorite() {
     if (this.currentPath) this.currentPath.isFavorite = !this.currentPath.isFavorite
     this.sortPaths()
   }
 
-  @action addMarker(position: { lat: number; lng: number }) {
+  @action
+  addMarker(position: { lat: number; lng: number }) {
     this.tempPathData = {
       ...this.tempPathData,
       markers: [...this.tempPathData.markers, position],
     }
   }
 
-  @action addPath(data: any) {
+  @action
+  addPath(data: any) {
     Object.assign(this.tempPathData, data)
     runInAction(() => {
       this.tempPathData.id = uuidv4()
@@ -94,6 +103,15 @@ export class PathsStore {
     this.sortPaths()
   }
 
+  @action
+  sortPaths() {
+    if (this.paths)
+      this.paths = this.paths!.sort(
+        (a, b) => (a.isFavorite as unknown as number) - (b.isFavorite as unknown as number)
+      ).reverse()
+  }
+
+  @action
   clearTempPath() {
     this.tempPathData = defaultCurrentPath
   }
@@ -102,12 +120,5 @@ export class PathsStore {
     return this.paths?.filter(
       path => path.title.indexOf(value) + 1 || path.fullDescription.indexOf(value) + 1
     )
-  }
-
-  sortPaths() {
-    if (this.paths)
-      this.paths = this.paths!.sort(
-        (a, b) => (a.isFavorite as unknown as number) - (b.isFavorite as unknown as number)
-      ).reverse()
   }
 }
