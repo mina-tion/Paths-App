@@ -27,7 +27,7 @@ const List: React.FC<Props> = observer(({ paths, setCurrentPathId, currentPathId
   console.log('filteredPaths', filteredPaths)
   const onSearch = (e: any) => {
     e.target.value
-      ? setFilteredPaths(pathsStore.filterPaths(e.target.value)!)
+      ? setFilteredPaths(pathsStore.getfilteredPaths(e.target.value)!)
       : setFilteredPaths(paths)
   }
 

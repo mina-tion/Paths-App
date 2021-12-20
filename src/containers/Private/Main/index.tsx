@@ -16,7 +16,6 @@ const Main: React.FC = () => {
 
   let modalAdding = useRef<IModalHandles>(null)
   const handlerClick = () => {
-    pathsStore.clearMarkers()
     modalAdding.current?.show()
   }
 

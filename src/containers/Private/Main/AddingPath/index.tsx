@@ -43,7 +43,7 @@ const AddingPath: React.FC<Props> = observer(({ close }) => {
       </div>
       <div className={styles.content}>
         <div className={styles.inputsContainer}>
-          <FormLayout markers={pathsStore.tempPath.markers} close={close} />
+          <FormLayout markers={pathsStore.tempPathData.markers} close={close} />
         </div>
 
         <div className={styles.mapContainer}>
@@ -55,9 +55,9 @@ const AddingPath: React.FC<Props> = observer(({ close }) => {
             setDirections={(markers: Array<object>, directionService: any) =>
               pathsStore.setDirections(markers, directionService)
             }
-            directions={pathsStore.tempPath.directions}
+            directions={pathsStore.tempPathData.directions}
             handlerClick={(e: any) => addMarker(e)}
-            markers={pathsStore.tempPath.markers}
+            markers={pathsStore.tempPathData.markers}
           ></Map>
         </div>
       </div>

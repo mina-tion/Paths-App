@@ -92,7 +92,7 @@ const FormLayout: React.FC<Props> = ({ close, markers }) => {
       </Form.Item>
       <div className={styles.lengthContainer}>
         <img src={map} alt="map" className={styles.mapIcon} />{' '}
-        <div className={styles.text}>Length {pathsStore.tempPath.distance} km</div>
+        <div className={styles.text}>Length {pathsStore.tempPathData.distance} km</div>
       </div>
 
       <Form.Item {...buttonItemLayout}>

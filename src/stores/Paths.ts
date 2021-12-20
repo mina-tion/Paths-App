@@ -1,5 +1,4 @@
-import { api } from 'config'
-import { observable, action, runInAction, makeAutoObservable, autorun, set, toJS } from 'mobx'
+import { observable, action, makeAutoObservable, autorun, set, toJS } from 'mobx'
 import { v4 as uuidv4 } from 'uuid'
 import { IPath } from 'types/User'
 import { RootStore } from 'stores'
@@ -18,10 +17,10 @@ export function autoSave(_this: any, name: string) {
 
 export class PathsStore {
   rootStore: RootStore
-  public accessToken: string
+  
   @observable paths: Array<IPath> = []
   @observable currentPathId: string = ''
-  @observable tempPath: IPath = {
+  @observable tempPathData: IPath = {
     id: '',
     title: '',
     shortDescription: '',
@@ -35,7 +34,6 @@ export class PathsStore {
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
     makeAutoObservable(this)
-    this.accessToken = ''
     autoSave(this, 'paths')
   }
 
@@ -59,7 +57,7 @@ export class PathsStore {
             _.flatMap(route.legs, leg => leg.distance.value)
           )
           let distance = Number((_.sum(distances) / 1000).toFixed(2))
-          this.tempPath = { ...this.tempPath, directions: result, distance: distance }
+          this.tempPathData = { ...this.tempPathData, directions: result, distance: distance }
         } else console.error(`error fetching directions ${result}`)
       }
     )
@@ -79,23 +77,23 @@ export class PathsStore {
   }
 
   @action addMarker(position: { lat: number; lng: number }) {
-    this.tempPath = {
-      ...this.tempPath,
-      markers: [...this.tempPath.markers, position],
+    this.tempPathData = {
+      ...this.tempPathData,
+      markers: [...this.tempPathData.markers, position],
     }
   }
 
   @action addPath(pathInfo: any) {
-    Object.assign(this.tempPath, pathInfo.path)
-    this.tempPath.id = uuidv4()
-    this.paths = [...this.paths, this.tempPath]
+    Object.assign(this.tempPathData, pathInfo.path)
+    this.tempPathData.id = uuidv4()
+    this.paths = [...this.paths, this.tempPathData]
 
     this.clearTempPath()
   }
 
   clearTempPath() {
     console.log('ckear')
-    this.tempPath = {
+    this.tempPathData = {
       id: '',
       title: '',
       shortDescription: '',
@@ -107,7 +105,7 @@ export class PathsStore {
     }
   }
 
-  filterPaths(value: string) {
+  getfilteredPaths(value: string) {
     return this.paths?.filter(
       path => path.title.indexOf(value) + 1 || path.fullDescription.indexOf(value) + 1
     )
@@ -120,12 +118,7 @@ export class PathsStore {
       ).reverse()
   }
 
-  @action clearMarkers() {
-    this.tempPath.markers = []
-  }
-
   getCurrentPath() {
     return this.paths?.find(path => path.id === this.currentPathId)
   }
-
 }
