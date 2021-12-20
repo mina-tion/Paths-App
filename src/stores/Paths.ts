@@ -1,8 +1,19 @@
-import { observable, action, makeAutoObservable, autorun, set, toJS } from 'mobx'
+import { observable, action, makeAutoObservable, autorun, set, toJS, runInAction } from 'mobx'
 import { v4 as uuidv4 } from 'uuid'
 import { IPath } from 'types/User'
 import { RootStore } from 'stores'
 import _ from 'lodash'
+
+const defaultCurrentPath = {
+  id: '',
+  title: '',
+  shortDescription: '',
+  fullDescription: '',
+  distance: 0,
+  isFavorite: false,
+  markers: [],
+  directions: null,
+}
 
 export function autoSave(_this: any, name: string) {
   const storedJson = localStorage.getItem(name)
@@ -19,17 +30,8 @@ export class PathsStore {
   rootStore: RootStore
 
   @observable paths: Array<IPath> = []
-  @observable currentPathId: string = ''
-  @observable tempPathData: IPath = {
-    id: '',
-    title: '',
-    shortDescription: '',
-    fullDescription: '',
-    distance: 0,
-    isFavorite: false,
-    markers: [],
-    directions: null,
-  }
+  @observable currentPath: IPath | null = null
+  @observable tempPathData: IPath = defaultCurrentPath
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
@@ -62,16 +64,17 @@ export class PathsStore {
     )
   }
 
-  @action removePath(currentPath: IPath) {
-    this.paths = this.paths?.filter(path => path.id !== currentPath.id) || []
+  @action removePath() {
+    this.paths = this.paths?.filter(path => path.id !== this.currentPath?.id) || []
   }
 
-  @action setCurrentPathId(id: string) {
-    this.currentPathId = id
+  @action setCurrentPath(id?: string) {
+    const result = this.paths.find(path => path.id === id)
+    this.currentPath = !this.currentPath || result ? null : result ?? null
   }
 
-  @action changeFavorite(currentPath: IPath) {
-    currentPath.isFavorite = !currentPath.isFavorite
+  @action changeFavorite() {
+    if (this.currentPath) this.currentPath.isFavorite = !this.currentPath.isFavorite
     this.sortPaths()
   }
 
@@ -84,23 +87,15 @@ export class PathsStore {
 
   @action addPath(data: any) {
     Object.assign(this.tempPathData, data)
-    this.tempPathData.id = uuidv4()
-    this.paths = [...this.paths, this.tempPathData]
-
+    runInAction(() => {
+      this.tempPathData.id = uuidv4()
+      this.paths = [...this.paths, this.tempPathData]
+    })
     this.sortPaths()
   }
 
   clearTempPath() {
-    this.tempPathData = {
-      id: '',
-      title: '',
-      shortDescription: '',
-      fullDescription: '',
-      distance: 0,
-      isFavorite: false,
-      markers: [],
-      directions: null,
-    }
+    this.tempPathData = defaultCurrentPath
   }
 
   getFilteredPaths(value: string) {
@@ -114,9 +109,5 @@ export class PathsStore {
       this.paths = this.paths!.sort(
         (a, b) => (a.isFavorite as unknown as number) - (b.isFavorite as unknown as number)
       ).reverse()
-  }
-
-  getCurrentPath() {
-    return this.paths?.find(path => path.id === this.currentPathId)
   }
 }

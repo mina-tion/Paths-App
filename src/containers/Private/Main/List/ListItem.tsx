@@ -1,5 +1,5 @@
-import React from 'react'
-import classNames from 'classnames'
+import React, { FC } from 'react'
+import cn from 'classnames'
 // style
 import styles from './styles.module.scss'
 
@@ -7,16 +7,20 @@ import styles from './styles.module.scss'
 import { FullscreenOutlined, RightOutlined, StarFilled } from '@ant-design/icons'
 import { Card } from 'antd'
 import { IPath } from 'types/User'
-import { useObserver } from 'mobx-react'
 
 // constants
 interface Props {
   path: IPath
-  setCurrentPathId: React.MouseEventHandler<HTMLSpanElement> | undefined
+  setCurrentPath: Function
 }
 
-const ListItem: React.FC<Props> = ({ path, setCurrentPathId }) => {
-  return useObserver(() => (
+const ListItem: FC<Props> = ({ path, setCurrentPath }) => {
+
+  const handlerClick = () => { 
+    setCurrentPath(path.id)
+  }
+
+  return (
     <Card className={styles.listItem}>
       <FullscreenOutlined style={{ fontSize: 30 }} />
 
@@ -24,7 +28,7 @@ const ListItem: React.FC<Props> = ({ path, setCurrentPathId }) => {
         <div className={styles.textContainer}>
           <div className={styles.titleContainer}>
             {path.isFavorite && <StarFilled style={{ color: '#1890FF' }} />}
-            <h3 className={classNames(styles.title, styles.favorite)}>{path.title}</h3>
+            <h3 className={cn(styles.title, styles.favorite)}>{path.title}</h3>
           </div>
 
           <p className={styles.description}>{path.shortDescription}</p>
@@ -32,9 +36,9 @@ const ListItem: React.FC<Props> = ({ path, setCurrentPathId }) => {
         <h2 className={styles.lengthText}>{path.distance} km</h2>
       </div>
 
-      <RightOutlined className={styles.arrow} onClick={setCurrentPathId} />
+      <RightOutlined className={styles.arrow} onClick={handlerClick} />
     </Card>
-  ))
+  )
 }
 
 export default ListItem

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState, FC } from 'react'
 //styles
 import styles from './styles.module.scss'
 
@@ -8,47 +8,30 @@ import map from 'sources/images/map.svg'
 import { IPath } from 'types/User'
 
 //constants
+import { validateMessages } from 'utils/formValidation'
 const { TextArea } = Input
 type LayoutType = Parameters<typeof Form>[0]['layout']
 
 interface Props {
   tempPathData: IPath
-  closeAdding: () => void
-  addPath: (data: any)=> void
+  closeAdding: Function
+  addPath: Function
 }
 
-const FormLayout: React.FC<Props> = ({ closeAdding, tempPathData, addPath }) => {
+const formLabelStyles: any = { span: 14 }
+const formWrapperStyles: any = { span: 14 }
+const buttonWrapperStyles: any = { span: 14 }
+
+const FormLayout: FC<Props> = ({ closeAdding, tempPathData, addPath }) => {
   const [addingError, setAddingError] = useState('')
   const [form] = Form.useForm()
   const [formLayout, setFormLayout] = useState<LayoutType>('vertical')
   const onFormLayoutChange = ({ layout }: { layout: LayoutType }) => {
     setFormLayout(layout)
   }
-  const formItemLayout =
-    formLayout === 'horizontal'
-      ? {
-          labelCol: { span: 14 },
-          wrapperCol: { span: 4 },
-        }
-      : null
-
-  const buttonItemLayout =
-    formLayout === 'horizontal'
-      ? {
-          wrapperCol: { span: 4, offset: 14 },
-        }
-      : null
-
-  const validateMessages = {
-    required: '${label} is required!',
-    types: {
-      string: '${label} is not a valid string!',
-    },
-  }
 
   const onFinish = (data: any) => {
-    if (tempPathData.markers.length < 2) 
-      setAddingError('Path should contain 2 points and more')
+    if (tempPathData.markers.length < 2) setAddingError('Path should contain 2 points and more')
     else {
       addPath(data.path)
       closeAdding()
@@ -57,7 +40,8 @@ const FormLayout: React.FC<Props> = ({ closeAdding, tempPathData, addPath }) => 
 
   return (
     <Form
-      {...formItemLayout}
+      labelCol={formLayout === 'horizontal' ? formLabelStyles : null}
+      wrapperCol={formLayout === 'horizontal' ? formWrapperStyles : null}
       layout={formLayout}
       form={form}
       onFinish={onFinish}
@@ -95,7 +79,7 @@ const FormLayout: React.FC<Props> = ({ closeAdding, tempPathData, addPath }) => 
         <div className={styles.text}>Length {tempPathData.distance} km</div>
       </div>
 
-      <Form.Item {...buttonItemLayout}>
+      <Form.Item wrapperCol={formLayout === 'horizontal' ? buttonWrapperStyles : null}>
         <Button type="primary" htmlType="submit" className={styles.button}>
           Add path
         </Button>

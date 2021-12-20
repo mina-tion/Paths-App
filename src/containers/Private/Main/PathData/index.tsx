@@ -1,11 +1,11 @@
-import React from 'react'
-import { observer } from 'mobx-react'
+import React, { FC } from 'react'
+import { useObserver } from 'mobx-react'
 // style
 import styles from './styles.module.scss'
 
 // components
 import { Button } from 'antd'
-import classNames from 'classnames'
+import cn from 'classnames'
 import Map from 'components/Map'
 import { IPath } from 'types/User'
 
@@ -17,8 +17,8 @@ interface Props {
   setDirections: (markers: Array<object>, directionService: any) => void
 }
 
-const PathData: React.FC<Props> = observer(({ path, changeFavorite, removePath, setDirections }) => {
-  return (
+const PathData: FC<Props> = ({ path, changeFavorite, removePath, setDirections }) => {
+  return useObserver(() => ( 
     <div className={styles.pathInfoContainer}>
       <div className={styles.header}>
         <h2 className={styles.title}>{path.title}</h2>
@@ -38,14 +38,18 @@ const PathData: React.FC<Props> = observer(({ path, changeFavorite, removePath, 
         />
       </div>
 
-      <Button type="text" className={classNames(styles.button, styles.blue)} onClick={changeFavorite}>
+      <Button
+        type="text"
+        className={cn(styles.button, styles.blue)}
+        onClick={changeFavorite}
+      >
         {path.isFavorite ? 'Remove from favorites' : 'Add to favorites'}
       </Button>
-      <Button type="text" className={classNames(styles.button, styles.red)} onClick={removePath}>
+      <Button type="text" className={cn(styles.button, styles.red)} onClick={removePath}>
         Remove
       </Button>
     </div>
-  )
-})
+  ))
+}
 
 export default PathData

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, FC } from 'react'
 
 // style
 import styles from './styles.module.scss'
@@ -7,35 +7,26 @@ import { useStore } from 'stores'
 
 // components
 import ListItem from './ListItem'
-
-import { IPath } from 'types/User'
-import { observer, useObserver } from 'mobx-react'
+import { useObserver } from 'mobx-react'
 
 // constants
 const { Search } = Input
 
-interface Props {
-  paths: IPath[] | null
-  setCurrentPathId(id: string): void
-  currentPathId: string
-}
-
-const List: React.FC<Props> = ({ paths, setCurrentPathId, currentPathId }) => {
+const List: FC = () => {
   const { pathsStore } = useStore()
-  const [filteredPaths, setFilteredPaths] = useState(paths)
+  const [filteredPaths, setFilteredPaths] = useState(pathsStore.paths)
   const onSearch = (e: any) => {
     e.target.value
       ? setFilteredPaths(pathsStore.getFilteredPaths(e.target.value)!)
-      : setFilteredPaths(paths)
+      : setFilteredPaths(pathsStore.paths)
   }
 
   useEffect(() => {
-    setFilteredPaths(paths)
-  }, [paths])
+    console.log(pathsStore.paths)
+    setFilteredPaths(pathsStore.paths)
+  }, [pathsStore.paths])
 
-  const handlerClick = (id: string): void => {
-    currentPathId === id ? pathsStore.setCurrentPathId('') : pathsStore.setCurrentPathId(id)
-  }
+  const handlerClick = (id: string) => pathsStore.setCurrentPath(id)
 
   return useObserver(()=>(
     <div className={styles.listContainer}>
@@ -47,7 +38,7 @@ const List: React.FC<Props> = ({ paths, setCurrentPathId, currentPathId }) => {
             <ListItem
               key={path.id}
               path={path}
-              setCurrentPathId={() => handlerClick(path.id)}
+              setCurrentPath={handlerClick}
             />
           ))}
       </ul>

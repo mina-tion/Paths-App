@@ -1,17 +1,13 @@
 @import 'sources/styles/mixins.scss';
 
 .container {
+ 
   padding: 30px 60px 30px 60px;
-
+/*   @include adaptive-value("padding-left", 60, 16, 0);
+  @include adaptive-value("padding", 60, 16, 0); */
+ 
   .content {
     @include flex();
     padding-top: 30px;
-
-    .text {
-      align-self: center;
-      margin: 0 auto;
-      @include text-style(18px, 500)
-    }
-
   }
 }
