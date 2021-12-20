@@ -6,38 +6,32 @@ import styles from './styles.module.scss'
 // components
 import { FullscreenOutlined, RightOutlined, StarFilled } from '@ant-design/icons'
 import { Card } from 'antd'
+import { IPath } from 'types/User'
 
 // constants
 interface Props {
-  id: number
-  title: string
-  shortDescription: string
-  pathLength: string
-  isFav: boolean
+  path: IPath
   setCurrentPathId: React.MouseEventHandler<HTMLSpanElement> | undefined
-  currentPathId: number
+  currentPathId: string
 }
 
-const ListItem: React.FC<Props> = ({
-  title,
-  shortDescription,
-  pathLength,
-  isFav,
-  setCurrentPathId,
-  currentPathId,
-}) => {
+const ListItem: React.FC<Props> = ({ path, setCurrentPathId, currentPathId }) => {
   return (
     <Card className={styles.listItem}>
       <FullscreenOutlined style={{ fontSize: 30 }} />
-      <div className={styles.textContainer}>
-        <div className={styles.titleContainer}>
-          {isFav && <StarFilled style={{ color: '#1890FF' }} />}
-          <h3 className={classNames(styles.title, styles.favorite)}>{title}</h3>
-        </div>
 
-        <p className={styles.description}>{shortDescription}</p>
+      <div className={styles.container}>
+        <div className={styles.textContainer}>
+          <div className={styles.titleContainer}>
+            {path.isFav && <StarFilled style={{ color: '#1890FF' }} />}
+            <h3 className={classNames(styles.title, styles.favorite)}>{path.title}</h3>
+          </div>
+
+          <p className={styles.description}>{path.shortDescription}</p>
+        </div>
+        <h2 className={styles.lengthText}>{path.distance} km</h2>
       </div>
-      <h2 className={styles.lengthText}>{pathLength}</h2>
+
       <RightOutlined className={styles.arrow} onClick={setCurrentPathId} />
     </Card>
   )

@@ -34,20 +34,20 @@ const Main: React.FC = () => {
         />
         {currentPath ? (
           <PathInfo
-            title={currentPath.title}
-            length={currentPath.pathLength}
-            fullDescription={currentPath.fullDescription}
-            isFav={currentPath.isFav}
-            changeFav={()=>pathsStore.changeFav(currentPath)}
-            removePath={()=>pathsStore.removePath(currentPath)}
+            path={currentPath}
+            changeFav={() => pathsStore.changeFav(currentPath)}
+            removePath={() => pathsStore.removePath(currentPath)}
+            setDirections={(markers: Array<object>, directionService: any) =>
+              pathsStore.setDirections(markers, directionService)
+            }
           />
         ) : (
           <div className={styles.text}>Select any path</div>
         )}
       </div>
 
-      <NewModal ref={modalAdding} titleHeader="Add new path">
-        <AddingPath close={()=>modalAdding.current?.close()}/>
+      <NewModal ref={modalAdding}>
+        <AddingPath close={() => modalAdding.current?.close()} />
       </NewModal>
     </main>
   ))

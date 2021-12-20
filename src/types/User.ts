@@ -11,7 +11,8 @@ export interface IPath {
   title: string
   shortDescription: string
   fullDescription: string
-  pathLength: string
+  distance: number
   isFav: boolean
   markers: Array<object>
+  directions: any
 }

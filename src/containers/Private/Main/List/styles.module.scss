@@ -16,6 +16,7 @@
     .listItem {
       position: relative;
       height: 90px;
+
       &:first-child {
         margin-top: 20px;
       }
@@ -32,30 +33,35 @@
         font-size: 40px;
       }
 
-      .textContainer {
-        padding-left: 10px;
-        height: 80%;
+      .container {
+        width: 100%;
+        @include flex(center, space-between);
+        .textContainer {
+          padding-left: 10px;
+          height: 80%;
 
-        .titleContainer {
-          @include flex(center);
+          .titleContainer {
+            @include flex(center);
 
-          .title {
-            @include text-style(22px, 500);
+            .title {
+              @include text-style(22px, 500);
+            }
+          }
+
+          .favorite {
+            content: "0";
+          }
+
+          .description {
+            @include text-style(14px, 400, 16px);
           }
         }
 
-        .favorite {
-          content: "0";
-        }
-
-        .description {
-          @include text-style(14px, 400, 16px);
+        .lengthText {
+          @include text-style(30px, 500);
         }
       }
 
-      .lengthText {
-        @include text-style(30px, 500);
-      }
 
       .arrow {
         @include position-absolute($right: 10px, $top: 40%);

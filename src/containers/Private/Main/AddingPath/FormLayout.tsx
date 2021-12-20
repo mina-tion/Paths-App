@@ -6,17 +6,20 @@ import styles from './styles.module.scss'
 import { Form, Input, Button } from 'antd'
 import map from 'sources/images/map.svg'
 import { useStore } from 'stores'
+import { IPath } from 'types/User'
 
 //constants
 const { TextArea } = Input
 type LayoutType = Parameters<typeof Form>[0]['layout']
 
 interface Props {
+  markers: Array<object>
   close: () => void
 }
 
-const FormLayout: React.FC<Props> = ({ close }) => {
+const FormLayout: React.FC<Props> = ({ close, markers }) => {
   const { pathsStore } = useStore()
+  const [addingError, setAddingError] = useState('')
   const [form] = Form.useForm()
   const [formLayout, setFormLayout] = useState<LayoutType>('vertical')
   const onFormLayoutChange = ({ layout }: { layout: LayoutType }) => {
@@ -44,9 +47,12 @@ const FormLayout: React.FC<Props> = ({ close }) => {
     },
   }
 
-  const onFinish = (values: any) => {
-    pathsStore.addPath(values)
-    close()
+  const onFinish = (pathInfo: any) => {
+    if (markers.length < 2) setAddingError('Path should contain 2 points and more')
+    else {
+      pathsStore.addPath(pathInfo)
+      close()
+    }
   }
 
   return (
@@ -86,7 +92,7 @@ const FormLayout: React.FC<Props> = ({ close }) => {
       </Form.Item>
       <div className={styles.lengthContainer}>
         <img src={map} alt="map" className={styles.mapIcon} />{' '}
-        <div className={styles.text}>Length 1.13 km</div>
+        <div className={styles.text}>Length {pathsStore.tempPath.distance} km</div>
       </div>
 
       <Form.Item {...buttonItemLayout}>
@@ -94,6 +100,8 @@ const FormLayout: React.FC<Props> = ({ close }) => {
           Add path
         </Button>
       </Form.Item>
+
+      {addingError && <p className={styles.error}>{addingError}</p>}
     </Form>
   )
 }

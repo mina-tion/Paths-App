@@ -4,12 +4,8 @@ import styles from './styles.module.scss'
 //components
 import Modal from '@mui/material/Modal'
 
-//images
-import { CloseOutlined } from '@ant-design/icons'
-
 type Props = {
-  children: React.ReactNode,
-  titleHeader: string
+  children: React.ReactNode
   onConfirm?: () => void
 }
 
@@ -19,7 +15,7 @@ export interface IModalHandles {
 }
 
 const Component: ForwardRefRenderFunction<IModalHandles, Props> = (
-  { titleHeader, children, onConfirm },
+  { children, onConfirm },
   ref
 ) => {
   const [visible, setVisible] = useState(false)
@@ -36,14 +32,7 @@ const Component: ForwardRefRenderFunction<IModalHandles, Props> = (
 
   return (
     <Modal open={visible} onClose={close}>
-      <div className={styles.container}>
-        <div className={styles.header}>
-          <h1 className={styles.title}>{titleHeader}</h1>
-          <CloseOutlined className={styles.closeBtn} onClick={close} />
-        </div>
-        {children}
-        {/* <AddingPath /> */}
-      </div>
+      <>{children}</>
     </Modal>
   )
 }
