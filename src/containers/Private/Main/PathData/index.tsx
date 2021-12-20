@@ -17,7 +17,7 @@ interface Props {
   setDirections: (markers: Array<object>, directionService: any) => void
 }
 
-const PathInfo: React.FC<Props> = observer(({ path, changeFavorite, removePath, setDirections }) => {
+const PathData: React.FC<Props> = observer(({ path, changeFavorite, removePath, setDirections }) => {
   return (
     <div className={styles.pathInfoContainer}>
       <div className={styles.header}>
@@ -48,4 +48,4 @@ const PathInfo: React.FC<Props> = observer(({ path, changeFavorite, removePath, 
   )
 })
 
-export default PathInfo
+export default PathData

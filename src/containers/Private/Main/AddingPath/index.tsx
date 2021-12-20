@@ -10,8 +10,7 @@ import Confirm from './ConfirmWindow'
 //images
 import { CloseOutlined } from '@ant-design/icons'
 import { useStore } from 'stores'
-import { observer } from 'mobx-react'
-import { convertCompilerOptionsFromJson } from 'typescript'
+import { observer, useObserver } from 'mobx-react'
 
 /*global google*/
 
@@ -19,10 +18,10 @@ interface Props {
   close: () => void
 }
 
-const AddingPath: React.FC<Props> = observer(({ close }) => {
+const AddingPath: React.FC<Props> = ({ close }) => {
   const { pathsStore } = useStore()
-
   let modalConfirm = useRef<IModalHandles>(null)
+
   const handlerClick = () => {
     modalConfirm.current?.show()
   }
@@ -35,7 +34,7 @@ const AddingPath: React.FC<Props> = observer(({ close }) => {
     pathsStore.clearTempPath()
   }
 
-  return (
+  return useObserver(()=>(
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.title}>Add new path</h1>
@@ -43,7 +42,11 @@ const AddingPath: React.FC<Props> = observer(({ close }) => {
       </div>
       <div className={styles.content}>
         <div className={styles.inputsContainer}>
-          <FormLayout markers={pathsStore.tempPathData.markers} close={close} />
+          <FormLayout
+            addPath={(data: any) => pathsStore.addPath(data)}
+            closeAdding={closeAdding}
+            tempPathData={pathsStore.tempPathData}
+          />
         </div>
 
         <div className={styles.mapContainer}>
@@ -69,7 +72,7 @@ const AddingPath: React.FC<Props> = observer(({ close }) => {
         />
       </NewModal>
     </div>
-  )
-})
+  ))
+}
 
 export default AddingPath

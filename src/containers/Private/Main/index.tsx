@@ -8,7 +8,7 @@ import styles from './styles.module.scss'
 // components
 import Header from './Header'
 import List from './List'
-import PathInfo from './PathInfo'
+import PathData from './PathData'
 import AddingPath from 'containers/Private/Main/AddingPath'
 
 const Main: React.FC = () => {
@@ -32,7 +32,7 @@ const Main: React.FC = () => {
           currentPathId={pathsStore.currentPathId}
         />
         {currentPath ? (
-          <PathInfo
+          <PathData
             path={currentPath}
             changeFavorite={() => pathsStore.changeFavorite(currentPath)}
             removePath={() => pathsStore.removePath(currentPath)}

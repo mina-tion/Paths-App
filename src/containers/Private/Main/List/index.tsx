@@ -9,8 +9,7 @@ import { useStore } from 'stores'
 import ListItem from './ListItem'
 
 import { IPath } from 'types/User'
-import { useObserver } from 'mobx-react'
-import { observer } from 'mobx-react'
+import { observer, useObserver } from 'mobx-react'
 
 // constants
 const { Search } = Input
@@ -21,13 +20,12 @@ interface Props {
   currentPathId: string
 }
 
-const List: React.FC<Props> = observer(({ paths, setCurrentPathId, currentPathId }) => {
+const List: React.FC<Props> = ({ paths, setCurrentPathId, currentPathId }) => {
   const { pathsStore } = useStore()
   const [filteredPaths, setFilteredPaths] = useState(paths)
-  console.log('filteredPaths', filteredPaths)
   const onSearch = (e: any) => {
     e.target.value
-      ? setFilteredPaths(pathsStore.getfilteredPaths(e.target.value)!)
+      ? setFilteredPaths(pathsStore.getFilteredPaths(e.target.value)!)
       : setFilteredPaths(paths)
   }
 
@@ -39,7 +37,7 @@ const List: React.FC<Props> = observer(({ paths, setCurrentPathId, currentPathId
     currentPathId === id ? pathsStore.setCurrentPathId('') : pathsStore.setCurrentPathId(id)
   }
 
-  return (
+  return useObserver(()=>(
     <div className={styles.listContainer}>
       <Search placeholder="Search..." onChange={onSearch} className={styles.search} />
 
@@ -54,6 +52,7 @@ const List: React.FC<Props> = observer(({ paths, setCurrentPathId, currentPathId
           ))}
       </ul>
     </div>
-  )
-})
+  ))
+}
+
 export default List

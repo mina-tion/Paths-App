@@ -51,14 +51,11 @@ export class PathsStore {
         provideRouteAlternatives: false,
       },
       (result: any, status: any) => {
-        console.log(result)
         if (status === google.maps.DirectionsStatus.OK) {
           let distances = _.flatMap(result.routes, route =>
             _.flatMap(route.legs, leg => leg.distance.value)
           )
           let distance = Number((_.sum(distances) / 1000).toFixed(2))
-
-
           this.tempPathData = { ...this.tempPathData, directions: result, distance: distance }
         } else console.error(`error fetching directions ${result}`)
       }
@@ -85,16 +82,15 @@ export class PathsStore {
     }
   }
 
-  @action addPath(pathInfo: any) {
-    Object.assign(this.tempPathData, pathInfo.path)
+  @action addPath(data: any) {
+    Object.assign(this.tempPathData, data)
     this.tempPathData.id = uuidv4()
     this.paths = [...this.paths, this.tempPathData]
 
-    this.clearTempPath()
+    this.sortPaths()
   }
 
   clearTempPath() {
-    console.log('ckear')
     this.tempPathData = {
       id: '',
       title: '',
@@ -107,7 +103,7 @@ export class PathsStore {
     }
   }
 
-  getfilteredPaths(value: string) {
+  getFilteredPaths(value: string) {
     return this.paths?.filter(
       path => path.title.indexOf(value) + 1 || path.fullDescription.indexOf(value) + 1
     )
