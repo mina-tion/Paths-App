@@ -26,6 +26,8 @@
 
   .descriptionText {
     @include text-style(16px, 500, 18px);
+    word-wrap: break-word;
+    width: 100%;
   }
 
   .map {
