@@ -5,11 +5,12 @@
   border-right: 1px solid;
   padding-right: 30px;
 
-  @include tablets { 
+  @include tablets {
     order: 2;
     width: 100%;
     flex-direction: (column);
   }
+
   .search {
     width: 100%;
   }
@@ -19,6 +20,7 @@
     padding: 0;
 
     .listItem {
+      justify-self: center;
       position: relative;
       height: 90px;
 
@@ -42,25 +44,28 @@
       .container {
         width: 100%;
         @include flex(center, space-between);
-        .textContainer {
-          padding-left: 10px;
-          height: 80%;
 
-          .titleContainer {
-            @include flex(center);
-
-            .title {
-              @include adaptive-value("font-size", 22, 16, 0);
+        .block {
+          @include flex(center, space-between);
+          .textContainer {
+            padding-left: 10px;
+  
+            .titleContainer {
+              @include flex(center);
+  
+              .title {
+                @include adaptive-value("font-size", 22, 16, 0);
+              }
             }
-          }
-
-          .favorite {
-            content: "0";
-          }
-
-          .description {
-            @include text-style(14px, 400, 16px);
-
+  
+            .favorite {
+              content: "0";
+            }
+  
+            .description {
+              @include text-style(14px, 400, 16px);
+  
+            }
           }
         }
 

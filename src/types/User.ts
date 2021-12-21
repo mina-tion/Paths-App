@@ -1,11 +1,3 @@
-export interface IComments {
-  postId: number
-  id: number
-  name: string
-  email: string
-  body: string
-}
-
 export interface IPath {
   id: string
   title: string
@@ -14,5 +6,5 @@ export interface IPath {
   distance: number
   isFavorite: boolean
   markers: Array<object>
-  directions: any
+  directions: google.maps.DirectionsResult | null
 }

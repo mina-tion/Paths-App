@@ -18,7 +18,7 @@ interface Props {
 }
 
 const PathData: FC<Props> = ({ path, changeFavorite, removePath, setDirections }) => {
-  return useObserver(() => ( 
+  return useObserver(() => (
     <div className={styles.pathInfoContainer}>
       <div className={styles.header}>
         <h2 className={styles.title}>{path.title}</h2>
@@ -38,11 +38,7 @@ const PathData: FC<Props> = ({ path, changeFavorite, removePath, setDirections }
         />
       </div>
 
-      <Button
-        type="text"
-        className={cn(styles.button, styles.blue)}
-        onClick={changeFavorite}
-      >
+      <Button type="text" className={cn(styles.button, styles.blue)} onClick={changeFavorite}>
         {path.isFavorite ? 'Remove from favorites' : 'Add to favorites'}
       </Button>
       <Button type="text" className={cn(styles.button, styles.red)} onClick={removePath}>

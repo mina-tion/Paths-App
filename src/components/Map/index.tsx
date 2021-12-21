@@ -17,7 +17,7 @@ interface Props {
   setDirections: Function
   handlerClick?: (e: any) => void
   markers: Array<object>
-  directions: any
+  directions: google.maps.DirectionsResult | null
 }
 
 const Map: React.ComponentClass<WithGoogleMapProps & WithScriptjsProps & Props, any> = observer(
