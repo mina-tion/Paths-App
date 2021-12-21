@@ -2,7 +2,12 @@
 
 .pathInfoContainer {
   width: 50%;
-  padding: 0px 30px 0px 30px;
+  @include adaptive-value("padding-right", 30, 8, 0);
+  @include adaptive-value("padding-left", 30, 8, 0);
+  @include tablets { 
+    width: 100%;
+    flex-direction: (column);
+  }
 
   .header {
     @include flex-direction(row);
