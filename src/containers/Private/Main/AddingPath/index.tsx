@@ -18,7 +18,7 @@ const mapElement = <div style={{ height: `100%` }} />
 
 interface Props {
   close: Function
-} 
+}
 
 const AddingPath: FC<Props> = ({ close }) => {
   const { pathsStore } = useStore()
@@ -55,7 +55,7 @@ const AddingPath: FC<Props> = ({ close }) => {
 
         <div className={styles.mapContainer}>
           <Map
-            googleMapURL={process.env.REACT_GOOGLE_MAP_URL!}
+            googleMapURL={process.env.REACT_APP_GOOGLE_MAP_URL!}
             loadingElement={mapElement}
             containerElement={mapElement}
             mapElement={mapElement}

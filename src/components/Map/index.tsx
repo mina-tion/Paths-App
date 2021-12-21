@@ -41,7 +41,7 @@ const Map: React.ComponentClass<WithGoogleMapProps & WithScriptjsProps & Props, 
             onClick={handlerClick}
           >
             {showDirections && directions && <DirectionsRenderer directions={directions} />}
-            {markers &&
+            {markers && markers.length<2 &&
               markers.map((marker: any, index: number) => <Marker key={index} position={marker} />)}
           </GoogleMap>
         </div>

@@ -15,14 +15,13 @@ const { Search } = Input
 const List: FC = observer(() => {
   const { pathsStore } = useStore()
   const [filteredPaths, setFilteredPaths] = useState(pathsStore.paths)
-  const onSearch = (e: any) => {
-    e.target.value
-      ? setFilteredPaths(pathsStore.getFilteredPaths(e.target.value)!)
+  const onSearch = ({ target }: any) => {
+    target.value
+      ? setFilteredPaths(pathsStore.getFilteredPaths(target.value)!)
       : setFilteredPaths(pathsStore.paths)
   }
 
   useEffect(() => {
-    console.log(pathsStore.paths)
     setFilteredPaths(pathsStore.paths)
   }, [pathsStore.paths])
 
@@ -35,7 +34,7 @@ const List: FC = observer(() => {
       <ul className={styles.list}>
         {filteredPaths &&
           filteredPaths.map(path => (
-            <ListItem key={path.id} path={path} setCurrentPath={handlerClick} />
+            <ListItem key={path.id} path={path} setCurrentPath={handlerClick} active={path.id===pathsStore.currentPath?.id}/>
           ))}
       </ul>
     </div>

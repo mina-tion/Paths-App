@@ -13,13 +13,23 @@
   .header {
     @include flex-direction(row);
     @include flex(center, space-between);
+
+    .title { 
+      @include text-style(24px, 600, 28px)
+    }
+
+    .distanceText { 
+      @include text-style(22px, 600, 18px)
+    }
+    margin-bottom: 15px;
   }
 
   .descriptionText {
-    @include text-style(14px, 500, 18px)
+    @include text-style(16px, 500, 18px);
   }
 
   .map {
+    margin-top: 10px;
     @include width-height(100%, 400px);
     background-color: rgb(211, 188, 233);
   }

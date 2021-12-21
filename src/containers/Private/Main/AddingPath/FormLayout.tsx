@@ -10,7 +10,6 @@ import { IPath } from 'types/User'
 //constants
 import { validateMessages } from 'utils/formValidation'
 const { TextArea } = Input
-type LayoutType = Parameters<typeof Form>[0]['layout']
 
 interface Props {
   tempPathData: IPath
@@ -18,17 +17,9 @@ interface Props {
   addPath: Function
 }
 
-const formLabelStyles: any = { span: 14 }
-const formWrapperStyles: any = { span: 14 }
-const buttonWrapperStyles: any = { span: 14 }
-
 const FormLayout: FC<Props> = ({ closeAdding, tempPathData, addPath }) => {
   const [addingError, setAddingError] = useState('')
   const [form] = Form.useForm()
-  const [formLayout, setFormLayout] = useState<LayoutType>('vertical')
-  const onFormLayoutChange = ({ layout }: { layout: LayoutType }) => {
-    setFormLayout(layout)
-  }
 
   const onFinish = (data: any) => {
     if (tempPathData.markers.length < 2) setAddingError('Path should contain 2 points and more')
@@ -40,13 +31,9 @@ const FormLayout: FC<Props> = ({ closeAdding, tempPathData, addPath }) => {
 
   return (
     <Form
-      labelCol={formLayout === 'horizontal' ? formLabelStyles : null}
-      wrapperCol={formLayout === 'horizontal' ? formWrapperStyles : null}
-      layout={formLayout}
+      layout="vertical"
       form={form}
       onFinish={onFinish}
-      initialValues={{ layout: formLayout }}
-      onValuesChange={onFormLayoutChange}
       validateMessages={validateMessages}
       className={styles.form}
     >
@@ -65,6 +52,7 @@ const FormLayout: FC<Props> = ({ closeAdding, tempPathData, addPath }) => {
         className={styles.inputField}
       >
         <TextArea showCount maxLength={160} style={{ height: 100 }} />
+
       </Form.Item>
       <Form.Item
         name={['path', 'fullDescription']}
@@ -79,7 +67,7 @@ const FormLayout: FC<Props> = ({ closeAdding, tempPathData, addPath }) => {
         <div className={styles.text}>Length {tempPathData.distance} km</div>
       </div>
 
-      <Form.Item wrapperCol={formLayout === 'horizontal' ? buttonWrapperStyles : null}>
+      <Form.Item>
         <Button type="primary" htmlType="submit" className={styles.button}>
           Add path
         </Button>

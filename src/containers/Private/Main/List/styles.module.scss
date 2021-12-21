@@ -18,11 +18,20 @@
   .list {
     margin-top: 30px;
     padding: 0;
+    overflow-y: scroll;
+    height: 850px;
+    .active { 
+      background-color: rgba(123, 203, 240, 0.383) !important;
+    }
 
     .listItem {
       justify-self: center;
       position: relative;
       height: 90px;
+      &:hover { 
+        background-color: rgba(123, 203, 240, 0.137) !important;
+        cursor: pointer;
+      }
 
       &:first-child {
         margin-top: 20px;

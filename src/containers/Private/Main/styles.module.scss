@@ -1,17 +1,26 @@
 @import 'sources/styles/mixins.scss';
 
 .container {
-
-  padding: 30px 60px 30px 60px;
+  padding: 30px 60px;
   @include adaptive-value("padding-left", 60, 16, 0);
   @include adaptive-value("padding-right", 60, 16, 0);
 
   .content {
     @include flex();
     padding-top: 30px;
-
+    @include width-height(100%, 900px);
     @include tablets {
-      flex-direction: (column);
+      @include flex-direction(column);
+    }
+
+    .text { 
+      @include laptop {
+        margin-bottom: 30px;
+        @include width-height(100%, 100%);
+      }
+      @include flex(center, center);
+      @include width-height(50%, 100%);
+      @include text-style(28px, 700, 24px, $color: #9ca0a586);
     }
   }
 }

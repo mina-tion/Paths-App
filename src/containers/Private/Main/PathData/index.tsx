@@ -17,21 +17,23 @@ interface Props {
   setDirections: (markers: Array<object>, directionService: any) => void
 }
 
+const mapElement = <div style={{ height: `100%` }} />
+
 const PathData: FC<Props> = ({ path, changeFavorite, removePath, setDirections }) => {
   return useObserver(() => (
     <div className={styles.pathInfoContainer}>
       <div className={styles.header}>
         <h2 className={styles.title}>{path.title}</h2>
-        <h2 className={styles.pathLengthText}>{path.distance} km</h2>
+        <h2 className={styles.distanceText}>{path.distance} km</h2>
       </div>
       <p className={styles.descriptionText}>{path.fullDescription}</p>
 
       <div className={styles.map}>
         <Map
-          googleMapURL={process.env.REACT_GOOGLE_MAP_URL!}
-          loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: `100%` }} />}
-          mapElement={<div style={{ height: `100%` }} />}
+          googleMapURL={process.env.REACT_APP_GOOGLE_MAP_URL!}
+          loadingElement={mapElement}
+          containerElement={mapElement}
+          mapElement={mapElement}
           markers={path.markers}
           setDirections={setDirections}
           directions={path.directions}
