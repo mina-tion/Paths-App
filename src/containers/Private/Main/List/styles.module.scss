@@ -4,7 +4,11 @@
   width: 50%;
   border-right: 1px solid;
   padding-right: 30px;
-
+  @include tablets { 
+    order: 2;
+    width: 100%;
+    flex-direction: (column);
+  }
   .search {
     width: 100%;
   }
@@ -22,6 +26,7 @@
       }
 
       padding-right: 30px;
+      @include adaptive-value("padding-right", 30, 8, 0);
 
       width: 100%;
       background-color: #0000000a;
