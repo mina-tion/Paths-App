@@ -55,7 +55,7 @@ const AddingPath: FC<Props> = ({ close }) => {
 
         <div className={styles.mapContainer}>
           <Map
-            googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyA9bslaj5Bl5nLuQQXe8rr_PkhDvvZqzMs"
+            googleMapURL={process.env.REACT_GOOGLE_MAP_URL!}
             loadingElement={mapElement}
             containerElement={mapElement}
             mapElement={mapElement}

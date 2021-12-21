@@ -28,7 +28,7 @@ const PathData: FC<Props> = ({ path, changeFavorite, removePath, setDirections }
 
       <div className={styles.map}>
         <Map
-          googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyA9bslaj5Bl5nLuQQXe8rr_PkhDvvZqzMs"
+          googleMapURL={process.env.REACT_GOOGLE_MAP_URL!}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `100%` }} />}
           mapElement={<div style={{ height: `100%` }} />}
