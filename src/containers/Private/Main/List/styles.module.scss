@@ -44,34 +44,39 @@
       .container {
         width: 100%;
         @include flex(center, space-between);
+        align-content: center;
 
         .block {
           @include flex(center, space-between);
+
           .textContainer {
             padding-left: 10px;
-  
+
             .titleContainer {
               @include flex(center);
-  
+
               .title {
                 @include adaptive-value("font-size", 22, 16, 0);
               }
             }
-  
+
             .favorite {
               content: "0";
             }
-  
+
             .description {
+              @include adaptive-value("max-width", 550, 100, 0);              
               @include text-style(14px, 400, 16px);
-  
+              word-wrap: break-word;
+              overflow: hidden;
             }
           }
         }
+      }
 
-        .lengthText {
-          @include adaptive-value("font-size", 30, 18, 0);
-        }
+      .lengthText {
+        width: 200px;
+        @include adaptive-value("font-size", 30, 18, 0);
       }
 
       .arrow {
