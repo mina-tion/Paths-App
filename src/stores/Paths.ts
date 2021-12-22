@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { IPath } from 'types/User'
 import { RootStore } from 'stores'
 import _ from 'lodash'
-
+import { makeLocalStorage } from './makeLocalStorage'
 const defaultCurrentPath = {
   id: '',
   title: '',
@@ -15,20 +15,8 @@ const defaultCurrentPath = {
   directions: null,
 }
 
-export function autoSave(_this: any, name: string) {
-  const storedJson = localStorage.getItem(name)
-  if (storedJson) {
-    set(_this, JSON.parse(storedJson))
-  }
-  autorun(() => {
-    const value = toJS(_this)
-    localStorage.setItem(name, JSON.stringify(value))
-  })
-}
-
 export class PathsStore {
   rootStore: RootStore
-
   @observable paths: Array<IPath> = []
   @observable currentPath: IPath | null = null
   @observable tempPathData: IPath = defaultCurrentPath
@@ -36,7 +24,7 @@ export class PathsStore {
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
     makeAutoObservable(this)
-    autoSave(this, 'paths')
+    makeLocalStorage(this, 'Store', ['paths']);
   }
 
   @action
